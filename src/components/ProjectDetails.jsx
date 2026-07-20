@@ -20,6 +20,17 @@ export default function ProjectDetails() {
                     allowFullScreen
                   />
                 </div>
+              ) : p.beforeAfter ? (
+                <div className="before-after">
+                  <figure>
+                    <Photo src={p.beforeAfter.before} alt={`${p.title} – før`} className="natural" />
+                    <figcaption><span className="ba-tag">Før</span></figcaption>
+                  </figure>
+                  <figure>
+                    <Photo src={p.beforeAfter.after} alt={`${p.title} – etter`} className="natural" />
+                    <figcaption><span className="ba-tag ba-tag-after">Etter</span></figcaption>
+                  </figure>
+                </div>
               ) : p.images ? (
                 <div className="project-gallery">
                   {p.images.map((src, i) => (

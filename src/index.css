@@ -189,7 +189,21 @@ button{font:inherit;}
 .project-gallery{display:flex;gap:14px;margin-top:4px;overflow-x:auto;padding-bottom:6px;
   scroll-snap-type:x proximity;}
 .project-gallery-photo{flex:0 0 auto;height:clamp(280px,46vw,440px);aspect-ratio:9/19.5;
-  scroll-snap-align:start;}
+  scroll-snap-align:start;background-color:var(--img);}
+/* full-bilde, aldri beskåret */
+.project-gallery-photo img{object-fit:contain;}
+
+/* ---------- før / etter ---------- */
+.before-after{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:4px;}
+.before-after figure{margin:0;display:flex;flex-direction:column;gap:10px;}
+/* naturlig høyde: bildet vises helt, uten beskjæring */
+.photo.natural{display:block;height:auto;}
+.photo.natural img{width:100%;height:auto;object-fit:contain;}
+.before-after figcaption{display:flex;}
+.ba-tag{font-family:"Spline Sans Mono",monospace;font-size:11.5px;letter-spacing:.04em;
+  padding:4px 10px;border:1.5px solid var(--muted);border-radius:20px;color:var(--sub);}
+.ba-tag-after{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);}
+@media (max-width:620px){.before-after{grid-template-columns:1fr;}}
 .project-detail-meta{display:flex;justify-content:space-between;align-items:flex-end;
   gap:30px;margin-top:24px;flex-wrap:wrap;}
 .project-detail-meta .txt{max-width:560px;}

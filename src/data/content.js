@@ -36,10 +36,16 @@ export const projects = [
     num: "02",
     title: "Nettside",
     tag: "Web",
-    image: `${import.meta.env.BASE_URL}projects/nettside/hero.png`,
+    image: `${import.meta.env.BASE_URL}projects/nettside/after.png`,
+    beforeAfter: {
+      before: `${import.meta.env.BASE_URL}projects/nettside/before.png`,
+      after: `${import.meta.env.BASE_URL}projects/nettside/after.png`,
+    },
     text:
-      "Etter studieslutt designet og bygde jeg nettsiden for Revisorsenteret " +
-      "Mandal, fra innhold og struktur til ferdig publisert side.",
+      "Revisorsenteret Mandal hadde en utdatert nettside. Jeg redesignet og " +
+      "bygde den på nytt fra bunnen, med ny visuell identitet, tydeligere " +
+      "struktur og bearbeidet innhold, til en moderne og tillitsvekkende side. " +
+      "Under ser du før og etter.",
     link: { label: "Besøk revisorsenteretmandal.no →", href: "https://revisorsenteretmandal.no" },
   },
   {
