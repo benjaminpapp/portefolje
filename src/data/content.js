@@ -61,11 +61,11 @@ export const projects = [
     num: "03",
     title: "Revisjonsprogram",
     tag: "Desktop",
-    image: `${import.meta.env.BASE_URL}projects/revisjonsprogram/lookup.png`,
+    image: `${import.meta.env.BASE_URL}projects/revisjonsprogram/oppsett.png`,
     images: [
+      `${import.meta.env.BASE_URL}projects/revisjonsprogram/oppsett.png`,
       `${import.meta.env.BASE_URL}projects/revisjonsprogram/lookup.png`,
       `${import.meta.env.BASE_URL}projects/revisjonsprogram/autoexcel.png`,
-      `${import.meta.env.BASE_URL}projects/revisjonsprogram/oppsett.png`,
     ],
     text:
       "Sideprosjekt med bachelorgruppa ved siden av bacheloroppgaven. RS-Innsyn " +
