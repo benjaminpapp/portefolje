@@ -26,26 +26,33 @@ export default function ProjectDetails() {
                     allowFullScreen
                   />
                 </div>
-              ) : p.beforeAfter ? (
-                <div className="before-after">
-                  <figure>
-                    <Photo
-                      src={p.beforeAfter.before}
-                      alt={`${p.title} – før`}
-                      className="natural"
-                      onClick={() => open(p.beforeAfter.before, `${p.title} – før`)}
-                    />
-                    <figcaption><span className="ba-tag">Før</span></figcaption>
-                  </figure>
-                  <figure>
-                    <Photo
-                      src={p.beforeAfter.after}
-                      alt={`${p.title} – etter`}
-                      className="natural"
-                      onClick={() => open(p.beforeAfter.after, `${p.title} – etter`)}
-                    />
-                    <figcaption><span className="ba-tag ba-tag-after">Etter</span></figcaption>
-                  </figure>
+              ) : p.comparisons ? (
+                <div className="comparisons">
+                  {p.comparisons.map((c) => (
+                    <div className="comparison" key={c.label}>
+                      <h3 className="comparison-label">{c.label}</h3>
+                      <div className="before-after">
+                        <figure>
+                          <Photo
+                            src={c.before}
+                            alt={`${p.title} ${c.label} – før`}
+                            className="natural"
+                            onClick={() => open(c.before, `${p.title} ${c.label} – før`)}
+                          />
+                          <figcaption><span className="ba-tag">Før</span></figcaption>
+                        </figure>
+                        <figure>
+                          <Photo
+                            src={c.after}
+                            alt={`${p.title} ${c.label} – etter`}
+                            className="natural"
+                            onClick={() => open(c.after, `${p.title} ${c.label} – etter`)}
+                          />
+                          <figcaption><span className="ba-tag ba-tag-after">Etter</span></figcaption>
+                        </figure>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : p.images ? (
                 <div className="project-gallery">

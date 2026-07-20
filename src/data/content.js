@@ -37,10 +37,18 @@ export const projects = [
     title: "Nettside",
     tag: "Web",
     image: `${import.meta.env.BASE_URL}projects/nettside/after.png`,
-    beforeAfter: {
-      before: `${import.meta.env.BASE_URL}projects/nettside/before.png`,
-      after: `${import.meta.env.BASE_URL}projects/nettside/after.png`,
-    },
+    comparisons: [
+      {
+        label: "Forside",
+        before: `${import.meta.env.BASE_URL}projects/nettside/before.png`,
+        after: `${import.meta.env.BASE_URL}projects/nettside/after.png`,
+      },
+      {
+        label: "Om oss",
+        before: `${import.meta.env.BASE_URL}projects/nettside/omoss-before.png`,
+        after: `${import.meta.env.BASE_URL}projects/nettside/omoss-after.png`,
+      },
+    ],
     text:
       "Revisorsenteret Mandal hadde en utdatert nettside. Jeg redesignet og " +
       "bygde den på nytt fra bunnen, med ny visuell identitet, tydeligere " +

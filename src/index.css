@@ -194,7 +194,10 @@ button{font:inherit;}
 .project-gallery-photo img{object-fit:contain;}
 
 /* ---------- før / etter ---------- */
-.before-after{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:4px;}
+.comparisons{display:flex;flex-direction:column;gap:34px;margin-top:4px;}
+.comparison-label{font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:16px;
+  font-weight:600;letter-spacing:-.01em;color:var(--ink);margin:0 0 12px;}
+.before-after{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
 .before-after figure{margin:0;display:flex;flex-direction:column;gap:10px;}
 /* naturlig høyde: bildet vises helt, uten beskjæring */
 .photo.natural{display:block;height:auto;}
