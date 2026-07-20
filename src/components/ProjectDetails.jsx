@@ -17,15 +17,25 @@ export default function ProjectDetails() {
             <Reveal as="h2" className="shead">{p.title}</Reveal>
             <Reveal delay={0.05}>
               {p.video ? (
-                <div className="video-embed">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${p.video}`}
-                    title={p.title}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  />
-                </div>
+                <>
+                  <div className="video-embed">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${p.video}`}
+                      title={p.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+                  {p.image && (
+                    <Photo
+                      src={p.image}
+                      alt={`${p.title} – digital tvilling`}
+                      className="project-detail-photo video-still"
+                      onClick={() => open(p.image, `${p.title} – digital tvilling`)}
+                    />
+                  )}
+                </>
               ) : p.comparisons ? (
                 <div className="comparisons">
                   {p.comparisons.map((c) => (

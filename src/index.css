@@ -26,7 +26,7 @@
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;background:var(--paper);}
-html,body{margin:0;padding:0;}
+html,body{margin:0;padding:0;overflow-x:clip;}
 body{
   background:transparent; /* romlaget (.starscape) ligger bak, html maler grunnfargen */
   color:var(--ink);
@@ -186,20 +186,32 @@ button{font:inherit;}
 .project-detail{scroll-margin-top:100px;}
 .project-detail .shead{margin-top:6px;}
 .project-detail-photo{height:clamp(220px,38vw,340px);margin-top:4px;}
+/* stillbilde under video: vis hele bildet, ikke beskåret */
+.video-still{height:auto;margin-top:16px;background-color:var(--img);cursor:zoom-in;}
+.video-still img{height:auto;object-fit:contain;}
 .project-gallery{display:flex;gap:14px;margin-top:4px;overflow-x:auto;padding-bottom:6px;
   scroll-snap-type:x proximity;}
-.project-gallery-photo{flex:0 0 auto;height:clamp(340px,58vw,540px);aspect-ratio:9/19.5;
+/* galleribilder får høyde satt; bredden følger bildets eget format
+   (fungerer for både stående mobilskjermbilder og liggende desktop-skjermbilder) */
+.project-gallery-photo{flex:0 0 auto;width:auto;height:clamp(340px,58vw,540px);
   scroll-snap-align:start;background-color:var(--img);}
 /* full-bilde, aldri beskåret */
-.project-gallery-photo img{object-fit:contain;}
+.project-gallery-photo img{width:auto;height:100%;object-fit:contain;}
 
 /* ---------- før / etter ---------- */
-/* medievisning bryter ut bredere enn tekstkolonnen så bildene blir større */
-.comparisons{display:flex;flex-direction:column;gap:34px;margin-top:8px;
-  width:min(1180px,94vw);margin-left:50%;transform:translateX(-50%);}
+.comparisons{display:flex;flex-direction:column;gap:34px;margin-top:8px;}
+/* på store skjermer bryter media ut bredere enn tekstkolonnen (uten å skape
+   horisontal scroll: full-bleed + indre padding, ingen transform) */
+@media(min-width:900px){
+  .comparisons{width:100vw;margin-left:calc(50% - 50vw);
+    padding-inline:max(24px, calc(50vw - 560px));}
+}
 .comparison-label{font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:16px;
   font-weight:600;letter-spacing:-.01em;color:var(--ink);margin:0 0 12px;}
 .before-after{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+/* før/etter deler samme format så bildene alltid blir like store */
+.before-after .photo.natural{aspect-ratio:2/1;height:auto;}
+.before-after .photo.natural img{width:100%;height:100%;object-fit:fill;}
 .before-after figure{margin:0;display:flex;flex-direction:column;gap:10px;}
 /* naturlig høyde: bildet vises helt, uten beskjæring */
 .photo.natural{display:block;height:auto;}

@@ -24,7 +24,7 @@ export const projects = [
     num: "01",
     title: "Farmchart",
     tag: "Digital Twin",
-    image: "",
+    image: `${import.meta.env.BASE_URL}projects/farmchart/twin.png`,
     video: "9AF6lGd-Tv8",
     text:
       "Bacheloroppgaven min: en uavhengig tech-stack for presisjonslandbruk. " +
@@ -61,10 +61,17 @@ export const projects = [
     num: "03",
     title: "Revisjonsprogram",
     tag: "Desktop",
-    image: "",
+    image: `${import.meta.env.BASE_URL}projects/revisjonsprogram/lookup.png`,
+    images: [
+      `${import.meta.env.BASE_URL}projects/revisjonsprogram/lookup.png`,
+      `${import.meta.env.BASE_URL}projects/revisjonsprogram/autoexcel.png`,
+      `${import.meta.env.BASE_URL}projects/revisjonsprogram/oppsett.png`,
+    ],
     text:
-      "Sideprosjekt med bachelorgruppa ved siden av bacheloroppgaven. En " +
-      "skrivebordsapplikasjon som henter data fra Skatteetatens API-er og " +
+      "Sideprosjekt med bachelorgruppa ved siden av bacheloroppgaven. RS-Innsyn " +
+      "er en skrivebordsapplikasjon som slår opp krav og betalinger mot " +
+      "Skatteetatens API-er: enkeltoppslag på organisasjonsnummer, eller " +
+      "batchkjøring av en hel Excel-fil. Kobler seg til via Maskinporten og " +
       "automatiserer revisjonsdokumentasjon. I daglig drift hos kunden og " +
       "erstatter manuelle prosesser.",
   },
