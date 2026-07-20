@@ -20,6 +20,12 @@ export default function ProjectDetails() {
                     allowFullScreen
                   />
                 </div>
+              ) : p.images ? (
+                <div className="project-gallery">
+                  {p.images.map((src, i) => (
+                    <Photo key={src} src={src} alt={`${p.title} skjermbilde ${i + 1}`} className="project-gallery-photo" />
+                  ))}
+                </div>
               ) : (
                 <Photo src={p.image} label="bilde / mockup" alt={p.title} className="project-detail-photo" />
               )}

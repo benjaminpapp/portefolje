@@ -186,6 +186,10 @@ button{font:inherit;}
 .project-detail{scroll-margin-top:100px;}
 .project-detail .shead{margin-top:6px;}
 .project-detail-photo{height:clamp(220px,38vw,340px);margin-top:4px;}
+.project-gallery{display:flex;gap:14px;margin-top:4px;overflow-x:auto;padding-bottom:6px;
+  scroll-snap-type:x proximity;}
+.project-gallery-photo{flex:0 0 auto;height:clamp(280px,46vw,440px);aspect-ratio:9/19.5;
+  scroll-snap-align:start;}
 .project-detail-meta{display:flex;justify-content:space-between;align-items:flex-end;
   gap:30px;margin-top:24px;flex-wrap:wrap;}
 .project-detail-meta .txt{max-width:560px;}

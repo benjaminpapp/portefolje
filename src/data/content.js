@@ -36,7 +36,7 @@ export const projects = [
     num: "02",
     title: "Nettside",
     tag: "Web",
-    image: "",
+    image: `${import.meta.env.BASE_URL}projects/nettside/hero.png`,
     text:
       "Etter studieslutt designet og bygde jeg nettsiden for Revisorsenteret " +
       "Mandal, fra innhold og struktur til ferdig publisert side.",
@@ -59,8 +59,19 @@ export const projects = [
     num: "04",
     title: "Luna App",
     tag: "App",
-    image: "",
-    text: "Kort beskrivelse av Luna App kommer her.",
+    image: `${import.meta.env.BASE_URL}projects/luna/home.jpg`,
+    images: [
+      `${import.meta.env.BASE_URL}projects/luna/home.jpg`,
+      `${import.meta.env.BASE_URL}projects/luna/cycle.jpg`,
+      `${import.meta.env.BASE_URL}projects/luna/foryou.jpg`,
+      `${import.meta.env.BASE_URL}projects/luna/fasting.jpg`,
+      `${import.meta.env.BASE_URL}projects/luna/diary.jpg`,
+    ],
+    text:
+      "En mobilapp for syklussporing, bygget rundt fasepersonlig innsikt. Luna " +
+      "kombinerer syklus- og p-pillepåminnelser med en fasteklokke som " +
+      "tilpasser seg hvor i syklusen du er, pluss en dagbok som lærer " +
+      "mønstrene dine over tid og finjusterer anbefalingene.",
   },
 ]
 
