@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portefølje — Benjamin Thorsen Papp. Bachelor i IT og Informasjonssystemer. Systemutvikling, data og UX.">
+<title>Benjamin Thorsen Papp — Portefølje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   Benjamin Thorsen Papp — Portefølje
+   Direction 01 "Redaksjonell": én rolig, sentrert kolonne.
+   Mørk, dempet palett med viridiangrønn aksent. Space Grotesk.
+
+   REDIGERE INNHOLD: all tekst ligger rett i HTML lenger ned — søk etter
+   seksjonskommentarene (HERO, OM + INTERESSER, PROSJEKTER, CV,
+   KONTAKT). Bytt bilder ved å sette en ekte URL i `--img-src` på .photo,
+   eller bytt ut hele <div class="photo"> med en <img>.
+   ===================================================================== */
+
+:root{
+  --ink:#e9e7e0;        /* primærtekst */
+  --paper:#1b1c1a;      /* bakgrunn */
+  --card:#242521;       /* kort/paneler */
+  --line:#48493f;       /* rammer */
+  --muted:#5b5c53;      /* dempet strek */
+  --muted2:#33342e;     /* svak strek */
+  --accent:#5aa888;     /* viridian */
+  --accent-ink:#84c6a8; /* lys viridian */
+  --accent-soft:#26352e;/* viridian bakgrunn */
+  --sub:#9b988f;        /* sekundærtekst */
+  --img:#2c2d28;        /* bildeplassholder */
+  --img2:#27332e;       /* mykt bildefelt */
+  --maxw:880px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+}
+.mono{font-family:"Space Mono",monospace;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* ---------- layout ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+.sec{padding:80px 0;border-bottom:1px solid var(--muted2);}
+.sec:last-of-type{border-bottom:0;}
+.center{text-align:center;}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;
+  background:rgba(27,28,26,.82);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav .brand{
+  font-family:"Space Mono",monospace;font-weight:700;font-size:14px;
+  letter-spacing:.12em;border:1.5px solid var(--line);
+  padding:5px 9px;border-radius:8px;
+}
+.nav .links{display:flex;gap:22px;align-items:center;
+  font-family:"Space Mono",monospace;font-size:12.5px;color:var(--sub);}
+.nav .links a{transition:color .15s;}
+.nav .links a:hover{color:var(--ink);}
+.nav .links .cta{
+  color:#fff;background:var(--accent);border:1.5px solid var(--accent-ink);
+  padding:6px 13px;border-radius:18px;transition:filter .15s;
+}
+.nav .links .cta:hover{filter:brightness(1.08);}
+.nav .menu-btn{display:none;background:none;border:1.5px solid var(--line);
+  color:var(--ink);border-radius:8px;padding:6px 9px;cursor:pointer;font-size:14px;}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent-ink);}
+.display{font-weight:700;line-height:1;margin:14px 0 0;font-size:clamp(38px,7vw,60px);
+  letter-spacing:-.03em;}
+.role{font-family:"Space Mono",monospace;font-size:15px;color:var(--sub);
+  margin-top:14px;letter-spacing:.03em;}
+.lead{max-width:520px;margin:22px auto 0;color:var(--sub);font-size:17px;}
+.label{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--sub);
+  display:flex;align-items:center;gap:14px;margin-bottom:26px;}
+.label::after{content:"";flex:1;height:1px;background:var(--muted2);}
+
+/* ---------- buttons / tags ---------- */
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:"Space Mono",monospace;
+  font-size:12.5px;padding:11px 18px;background:var(--accent);color:#fff;
+  border:1.5px solid var(--accent-ink);border-radius:9px;cursor:pointer;
+  transition:filter .15s,transform .15s;}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+.btn.ghost:hover{border-color:var(--accent-ink);color:var(--accent-ink);filter:none;}
+.btnrow{display:flex;gap:13px;flex-wrap:wrap;margin-top:26px;}
+.tag{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.05em;
+  padding:4px 10px;border:1.5px solid var(--muted);border-radius:20px;color:var(--sub);}
+.tag.green{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);}
+.taglist{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* ---------- photo placeholder ----------
+   Default = wireframe-style placeholder. To use a real image, either
+   set  style="--img-src:url('bilde.jpg')"  on the .photo element,
+   or replace the whole .photo with <img src="..." alt="...">.        */
+.photo{
+  position:relative;border:1px solid var(--line);border-radius:10px;
+  background-color:var(--img);
+  background-image:var(--img-src,
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--muted) 50%, transparent calc(50% + 1px)),
+    linear-gradient(to top left, transparent calc(50% - 1px), var(--muted) 50%, transparent calc(50% + 1px)));
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;width:100%;overflow:hidden;}
+.photo.soft{background-color:var(--img2);}
+.photo > span{font-family:"Space Mono",monospace;font-size:11px;color:var(--sub);
+  background:var(--card);padding:3px 9px;border-radius:4px;border:1px solid var(--muted2);}
+.photo[style*="--img-src"] > span{display:none;}
+
+/* ---------- hero ---------- */
+.hero{padding:96px 0 80px;}
+
+/* ---------- prosjektvideo (embed) ---------- */
+.video-embed{position:relative;width:100%;aspect-ratio:16/9;border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;background:var(--img);}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.project-detail{scroll-margin-top:100px;}
+.project-detail-photo{height:clamp(220px,38vw,340px);margin-top:4px;}
+.project-detail-meta{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:30px;margin-top:24px;flex-wrap:wrap;}
+.project-detail-meta .txt{max-width:560px;}
+.project-detail-meta p{color:var(--sub);margin:12px 0 0;}
+.cap .num{color:var(--sub);font-family:"Space Mono",monospace;font-size:.85em;}
+/* ---------- portrett (om meg) ---------- */
+.about-col .about-photo{width:100%;max-width:330px;aspect-ratio:4/5;}
+
+/* ---------- project grid ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.grid3 > :nth-child(4){grid-column:2;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;
+  padding:13px;transition:border-color .15s,transform .15s;}
+.card:hover{border-color:var(--accent-ink);transform:translateY(-3px);}
+.card .photo{height:155px;}
+.card .cap{display:flex;align-items:center;justify-content:space-between;margin-top:13px;gap:10px;}
+.card .cap strong{font-size:16px;font-weight:600;letter-spacing:-.01em;}
+
+/* ---------- om + interesser (side om side) ---------- */
+.om-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(32px,5vw,56px);align-items:start;}
+/* bio-tekst i full bredde, flyter under både portrett og interesser */
+.about-bio{grid-column:1 / -1;}
+.about-bio p{color:var(--sub);margin:14px 0 0;text-wrap:pretty;}
+.about-bio .shead{margin:0;}
+
+/* ---------- services (redaksjonell liste) ---------- */
+.services-list{display:flex;flex-direction:column;}
+.service{padding:22px 0;border-top:1px solid var(--muted2);}
+.service:first-child{border-top:0;padding-top:0;}
+.service h3{font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:21px;
+  font-weight:600;line-height:1.15;letter-spacing:-.01em;margin:0 0 8px;color:var(--ink);}
+.service p{color:var(--sub);margin:0;font-size:15px;max-width:60ch;}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;padding-left:32px;}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--muted);}
+.tl .row{position:relative;padding:0 0 30px;}
+.tl .row:last-child{padding-bottom:0;}
+.tl .row::before{content:"";position:absolute;left:-32px;top:4px;width:14px;height:14px;
+  border-radius:50%;background:var(--card);border:2.5px solid var(--accent);}
+.tl .yr{font-family:"Space Mono",monospace;font-size:12px;color:var(--accent-ink);}
+.tl .ti{font-size:18px;font-weight:600;line-height:1.15;letter-spacing:-.01em;margin:5px 0 8px;}
+.tl p{color:var(--sub);margin:0;max-width:580px;font-size:15px;}
+
+/* ---------- contact ---------- */
+.bigcontact{font-weight:700;font-size:clamp(32px,6vw,46px);line-height:1;
+  letter-spacing:-.03em;margin:0;}
+.pill{display:inline-flex;align-items:center;gap:9px;font-family:"Space Mono",monospace;
+  font-size:13px;border:1.5px solid var(--line);border-radius:30px;padding:10px 17px;
+  transition:border-color .15s,color .15s;}
+.pill:hover{border-color:var(--accent-ink);color:var(--accent-ink);}
+
+/* ---------- footer ---------- */
+.foot{display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:26px 0;font-family:"Space Mono",monospace;font-size:11px;color:var(--sub);
+  flex-wrap:wrap;}
+
+/* ---------- responsive ---------- */
+@media(max-width:760px){
+  .nav .links{display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);}
+  .nav .links.open{display:flex;}
+  .nav .links a{padding:14px 24px;width:100%;border-top:1px solid var(--muted2);}
+  .nav .links .cta{border-radius:0;border:0;border-top:1px solid var(--muted2);}
+  .nav .menu-btn{display:block;}
+  .grid3{grid-template-columns:1fr 1fr;}
+  .grid3 > :nth-child(4){grid-column:auto;}
+  .om-grid{grid-template-columns:1fr;gap:48px;}
+  .about-col .about-photo{max-width:280px;}
+}
+@media(max-width:480px){
+  .grid3{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================== NAV ============================== -->
+<header class="nav">
+  <a href="#top" class="brand">BTP</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Meny" aria-expanded="false">☰</button>
+  <nav class="links" id="navLinks">
+    <a href="#arbeid">Arbeid</a>
+    <a href="#om">Om</a>
+    <a href="#cv">CV</a>
+    <a href="#kontakt" class="cta">Kontakt</a>
+  </nav>
+</header>
+
+<a id="top"></a>
+
+<!-- ============================== HERO ============================== -->
+<section class="sec hero center">
+  <div class="wrap">
+    <div class="eyebrow">Portefølje — 2026</div>
+    <h1 class="display">Benjamin Thorsen Papp</h1>
+    <div class="role">Bachelor i IT &amp; Informasjonssystemer</div>
+    <p class="lead">
+      Fersk fra bachelor i IT og informasjonssystemer. Nysgjerrig på alt fra
+      systemutvikling og dataanalyse til grensesnitt som er enkle å bruke, og
+      ivrig etter å lære mer for hvert prosjekt.
+    </p>
+    <div class="btnrow" style="justify-content:center">
+      <a href="#arbeid" class="btn">Se arbeid ↓</a>
+      <a href="/cv.pdf" download class="btn ghost">Last ned CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OM + INTERESSER ===================== -->
+<section class="sec" id="om">
+  <div class="wrap">
+    <div class="om-grid">
+      <div class="about-col">
+        <div class="photo soft about-photo" style="--img-src:url('/meg.jpg')"><span>portrett</span></div>
+      </div>
+
+      <div class="services-col" id="tjenester">
+        <h2 class="shead">Hva jeg synes er interessant</h2>
+        <div class="services-list">
+          <div class="service">
+            <h3>Systemutvikling</h3>
+            <p>Å bygge ting fra bunnen, fra datamodell til ferdig grensesnitt. Fersk fra studiet og klar til å bryne meg på ekte prosjekter.</p>
+          </div>
+          <div class="service">
+            <h3>Data &amp; analyse</h3>
+            <p>Å finne struktur og innsikt i rotete data. Spørringer som svarer på noe ekte er det jeg liker best.</p>
+          </div>
+          <div class="service">
+            <h3>UX &amp; grensesnitt</h3>
+            <p>Rene, rolige grensesnitt bygget rundt hvordan folk faktisk jobber. Her vil jeg lære mest mulig.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-bio">
+        <h2 class="shead">Hei der!</h2>
+        <p>
+          Jeg er nyutdannet med bachelor i IT og informasjonssystemer, og det jeg synes er morro er
+          å stå fast i et problem, grave meg gjennom det, og kjenne mestringsfølelsen
+          når brikkene endelig faller på plass. Veldig nysgjerrig, strukturert og glad i å
+          være kreativ, med sansen for å gjøre kompliserte ting enkle. Jeg er en stor AI entusiast
+          og ser verdien av å kunne bruke den type teknologi på riktig måte.
+        </p>
+        <p>
+          Jeg har erfaring med å jobbe i team gjennom både studier og prosjekter, hvor
+          samarbeid, kommunikasjon og felles måloppnåelse har vært sentralt. Jeg har
+          også arbeidet etter agile arbeidsmetoder, med fokus på fleksibilitet,
+          kontinuerlig forbedring og effektiv koordinering mellom teammedlemmer.
+        </p>
+        <div class="taglist" style="margin-top:18px">
+          <span class="tag">Kreativ</span><span class="tag">Nysgjerrig</span>
+          <span class="tag">Gir ikke opp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== PROSJEKTER =========================== -->
+<section class="sec" id="arbeid">
+  <div class="wrap">
+    <h2 class="shead">Prosjekter</h2>
+    <div class="grid3">
+      <a href="#farmchart" class="card"><div class="photo"><span>bilde</span></div>
+        <div class="cap"><strong><span class="num">01</span> Farmchart</strong><span class="tag">Digital Twin</span></div></a>
+      <a href="#nettside" class="card"><div class="photo"><span>bilde</span></div>
+        <div class="cap"><strong><span class="num">02</span> Nettside</strong><span class="tag">Web</span></div></a>
+      <a href="#revisjonsprogram" class="card"><div class="photo"><span>bilde</span></div>
+        <div class="cap"><strong><span class="num">03</span> Revisjonsprogram</strong><span class="tag">Desktop</span></div></a>
+      <a href="#luna" class="card"><div class="photo"><span>bilde</span></div>
+        <div class="cap"><strong><span class="num">04</span> Luna App</strong><span class="tag">App</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROSJEKTDETALJER ===================== -->
+<section class="sec project-detail" id="farmchart">
+  <div class="wrap">
+    <h2 class="shead">Farmchart</h2>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/9AF6lGd-Tv8"
+        title="Farmchart" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+    <div class="project-detail-meta">
+      <div class="txt">
+        <span class="tag">Digital Twin</span>
+        <p>
+          Bacheloroppgaven min: en uavhengig tech-stack for presisjonslandbruk.
+          Vi bygde en pipeline som genererer digitale tvillinger nøyaktige helt
+          ned på bærnivå, med AI i kjernen.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec project-detail" id="nettside">
+  <div class="wrap">
+    <h2 class="shead">Nettside</h2>
+    <div class="photo project-detail-photo"><span>bilde / mockup</span></div>
+    <div class="project-detail-meta">
+      <div class="txt">
+        <span class="tag">Web</span>
+        <p>
+          Etter studieslutt designet og bygde jeg nettsiden for Revisorsenteret
+          Mandal, fra innhold og struktur til ferdig publisert side.
+        </p>
+      </div>
+      <a href="https://revisorsenteretmandal.no" target="_blank" rel="noopener noreferrer" class="btn">Besøk revisorsenteretmandal.no →</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec project-detail" id="revisjonsprogram">
+  <div class="wrap">
+    <h2 class="shead">Revisjonsprogram</h2>
+    <div class="photo project-detail-photo"><span>bilde / mockup</span></div>
+    <div class="project-detail-meta">
+      <div class="txt">
+        <span class="tag">Desktop</span>
+        <p>
+          Sideprosjekt med bachelorgruppa ved siden av bacheloroppgaven. En
+          skrivebordsapplikasjon som henter data fra Skatteetatens API-er og
+          automatiserer revisjonsdokumentasjon. I daglig drift hos kunden og
+          erstatter manuelle prosesser.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec project-detail" id="luna">
+  <div class="wrap">
+    <h2 class="shead">Luna App</h2>
+    <div class="photo project-detail-photo"><span>bilde / mockup</span></div>
+    <div class="project-detail-meta">
+      <div class="txt">
+        <span class="tag">App</span>
+        <p>Kort beskrivelse av Luna App kommer her.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CV ============================== -->
+<section class="sec" id="cv">
+  <div class="wrap">
+    <div class="label">Erfaring</div>
+    <div class="tl">
+      <div class="row">
+        <div class="yr">2023 — 2026</div>
+        <div class="ti">Bachelor i IT og informasjonssystemer</div>
+        <p>Universitetet i Agder, fullført 2026. Bachelorprosjektet Farmchart var en pipeline for digitale tvillinger til presisjonslandbruk, nøyaktige helt ned på bærnivå.</p>
+      </div>
+      <div class="row">
+        <div class="yr">2026</div>
+        <div class="ti">Webutvikler for Revisorsenteret Mandal</div>
+        <p>Etter studieslutt designet og bygde jeg nettsiden revisorsenteretmandal.no for revisjonsselskapet.</p>
+      </div>
+      <div class="row">
+        <div class="yr">2026</div>
+        <div class="ti">Utvikler hos Revisorsenteret Mandal</div>
+        <p>Sideprosjekt med bachelorgruppa ved siden av bacheloroppgaven: en skrivebordsapplikasjon som henter data fra Skatteetatens API-er og automatiserer revisjonsdokumentasjon. I daglig drift hos kunden.</p>
+      </div>
+      <div class="row">
+        <div class="yr">2021 — 2023</div>
+        <div class="ti">Operatør og objektleder hos Skan-Kontroll</div>
+        <p>Overvåkning, hendelseshåndtering, risikovurdering og operativt ansvar ved vaktsentral.</p>
+      </div>
+      <div class="row">
+        <div class="yr">2017 — 2019</div>
+        <div class="ti">Lyd- og musikkproduksjon, Noroff</div>
+        <p>Fagskoleutdanning som ga meg det kreative grunnlaget jeg fortsatt bygger videre på.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ KONTAKT ============================ -->
+<section class="sec center" id="kontakt">
+  <div class="wrap">
+    <p class="bigcontact">La oss ta en prat →</p>
+    <div class="btnrow" style="justify-content:center;margin-top:26px">
+      <a href="mailto:hei@benjaminpapp.no" class="pill">✉ hei@benjaminpapp.no</a>
+      <a href="https://www.linkedin.com/in/benjaminthorsenpapp" target="_blank" rel="noopener noreferrer" class="pill">in / LinkedIn</a>
+      <a href="https://github.com/" class="pill">⌥ GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="wrap">
+  <div class="foot">
+    <span>© 2026 Benjamin Thorsen Papp</span>
+    <span>Bygget for hånd</span>
+  </div>
+</footer>
+
+<script>
+// Mobil-meny
+(function(){
+  var btn=document.getElementById("menuBtn");
+  var links=document.getElementById("navLinks");
+  btn.addEventListener("click",function(){
+    var open=links.classList.toggle("open");
+    btn.setAttribute("aria-expanded",open?"true":"false");
+  });
+  links.addEventListener("click",function(e){
+    if(e.target.tagName==="A"){links.classList.remove("open");btn.setAttribute("aria-expanded","false");}
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+/* =====================================================================
+   Benjamin Thorsen Papp — Portefølje (Vite + React)
+   Direction 01 "Redaksjonell": rolig, sentrert kolonne.
+   Mørk, dempet palett med viridiangrønn aksent.
+   Schibsted Grotesk (tekst) + Spline Sans Mono (etiketter).
+   Innhold redigeres i src/data/content.js
+   ===================================================================== */
+
+:root{
+  /* Deep space / glow-emerald. Mørk, kjølig romfølelse med lysende grønn aksent. */
+  --ink:#e8eef5;          /* kjølig hvit, primærtekst */
+  --paper:#070b12;        /* dyp romsvart bakgrunn */
+  --card:#0e141d;         /* kjølig mørk flate */
+  --line:#233042;         /* kjølige rammer */
+  --muted:#3a4a5e;        /* dempet kjølig strek (tag-rammer) */
+  --muted2:#141c28;       /* svak skillelinje */
+  --accent:#36e0a0;       /* glødende emerald (rammer, prikker, glød) */
+  --accent-ink:#6cf2c0;   /* lys emerald (lenker, fokus, eyebrow) */
+  --accent-strong:#36e0a0;/* fylte knapper (med mørk tekst, 11:1 WCAG AAA) */
+  --accent-contrast:#04130c; /* nær-svart tekst på lys grønn knapp */
+  --accent-soft:#0c2419;  /* dyp grønn flate (grønn tag) */
+  --sub:#93a1b4;          /* kjølig grå sekundærtekst (7.5:1) */
+  --img:#121a24;          /* bildeplassholder */
+  --img2:#0e1f1a;         /* mykt grønntonet bildefelt */
+  --maxw:880px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;background:var(--paper);}
+html,body{margin:0;padding:0;}
+body{
+  background:transparent; /* romlaget (.starscape) ligger bak, html maler grunnfargen */
+  color:var(--ink);
+  font-family:"Schibsted Grotesk",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+}
+.mono{font-family:"Spline Sans Mono",monospace;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+button{font:inherit;}
+
+/* ---------- keyboard-fokus (synlig for tastatur, ikke ved muse-klikk) ---------- */
+:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px;border-radius:4px;}
+.card:focus-visible,.btn:focus-visible,.pill:focus-visible,.nav .links .cta:focus-visible{
+  outline-offset:4px;}
+:focus:not(:focus-visible){outline:none;}
+
+/* ---------- hopp-til-innhold (skjult til tab-fokus) ---------- */
+.skip{position:fixed;top:10px;left:50%;transform:translate(-50%,-150%);z-index:100;
+  background:var(--accent-strong);color:var(--accent-contrast);font-family:"Spline Sans Mono",monospace;
+  font-size:13px;padding:10px 16px;border-radius:8px;border:1.5px solid var(--accent-ink);
+  transition:transform .18s cubic-bezier(.22,1,.36,1);}
+.skip:focus{transform:translate(-50%,0);}
+
+/* ---------- romlag: faste stjerner (bak alt, pointer-events av).
+   statisk emerald-glød fjernet — de animerte strålene gir nå lyset ---------- */
+.starscape{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+/* interaktivt prikk-felt: fast bakgrunn bak strålene (z-index:-1), over stjernene i DOM */
+.dot-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+/* prikkene (canvas) fader ut med scroll; cursor-gløden (svg) blir igjen */
+.dot-bg canvas{opacity:var(--dots-opacity,1);}
+.starscape::before{content:"";position:absolute;inset:0;opacity:.6;
+  background-repeat:no-repeat;
+  background-image:
+    radial-gradient(1.2px 1.2px at 12% 18%, rgba(232,238,245,.9), transparent),
+    radial-gradient(1px 1px at 27% 42%, rgba(232,238,245,.6), transparent),
+    radial-gradient(1.3px 1.3px at 41% 12%, rgba(180,244,214,.8), transparent),
+    radial-gradient(1px 1px at 58% 33%, rgba(232,238,245,.55), transparent),
+    radial-gradient(1.4px 1.4px at 73% 21%, rgba(232,238,245,.85), transparent),
+    radial-gradient(1px 1px at 88% 48%, rgba(180,244,214,.55), transparent),
+    radial-gradient(1.1px 1.1px at 9% 63%, rgba(232,238,245,.6), transparent),
+    radial-gradient(1px 1px at 33% 78%, rgba(232,238,245,.45), transparent),
+    radial-gradient(1.3px 1.3px at 52% 66%, rgba(232,238,245,.7), transparent),
+    radial-gradient(1px 1px at 67% 88%, rgba(180,244,214,.5), transparent),
+    radial-gradient(1.2px 1.2px at 81% 72%, rgba(232,238,245,.65), transparent),
+    radial-gradient(1px 1px at 94% 84%, rgba(232,238,245,.4), transparent),
+    radial-gradient(1px 1px at 19% 91%, rgba(232,238,245,.5), transparent),
+    radial-gradient(1.1px 1.1px at 46% 95%, rgba(180,244,214,.45), transparent);}
+
+/* ---------- layout ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+/* #main posisjonerer .page-rays; seksjonene løftes over strålene */
+#main{position:relative;}
+.sec{padding:80px 0;position:relative;z-index:1;}
+.center{text-align:center;}
+
+/* lysstråle-lag: bakgrunn øverst på siden, strekker seg forbi hero inn bak
+   arbeid-seksjonen. z-index:0 = bak alt innhold (.sec er z-index:1).
+   mask tonar strålene mykt ut mot bunnen så de ikke kuttes hardt av. */
+.page-rays{position:absolute;top:0;left:0;right:0;height:clamp(760px,125vh,1400px);
+  z-index:0;pointer-events:none;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom, #000 80%, transparent 100%);
+          mask-image:linear-gradient(to bottom, #000 80%, transparent 100%);}
+
+/* ---------- nav ---------- */
+/* flytende dock: sentrert pille, avrundet, ~90% gjennomsiktig med blur */
+.nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:20px;
+  padding:8px 8px 8px 18px;max-width:calc(100vw - 24px);
+  background:rgba(7,11,18,.10);
+  backdrop-filter:blur(16px) saturate(1.3);
+  -webkit-backdrop-filter:blur(16px) saturate(1.3);
+  border:1px solid rgba(232,238,245,.10);
+  border-radius:999px;
+  box-shadow:0 6px 24px rgba(0,0,0,.14);
+}
+.nav .brand{
+  font-family:"Spline Sans Mono",monospace;font-weight:700;font-size:14px;
+  letter-spacing:.12em;border:1.5px solid var(--line);
+  padding:5px 9px;border-radius:8px;
+}
+.nav .links{display:flex;gap:22px;align-items:center;
+  font-family:"Spline Sans Mono",monospace;font-size:12.5px;color:var(--sub);}
+.nav .links a{transition:color .15s;}
+.nav .links a:hover{color:var(--ink);}
+.nav .links .cta{
+  color:var(--accent-contrast);background:var(--accent-strong);border:1.5px solid var(--accent-ink);
+  font-weight:700;padding:6px 13px;border-radius:18px;transition:filter .15s;
+}
+.nav .links .cta:hover{filter:brightness(1.1);}
+.nav .menu-btn{display:none;background:none;border:1.5px solid var(--line);
+  color:var(--ink);border-radius:8px;cursor:pointer;font-size:18px;
+  min-width:44px;min-height:44px;align-items:center;justify-content:center;}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent-ink);}
+.display{font-weight:700;line-height:1;margin:14px 0 0;font-size:clamp(38px,7vw,60px);
+  letter-spacing:-.03em;}
+.role{font-family:"Spline Sans Mono",monospace;font-size:15px;color:var(--sub);
+  margin-top:14px;letter-spacing:.03em;}
+.lead{max-width:520px;margin:22px auto 0;color:var(--sub);font-size:17px;}
+.h2{font-weight:700;font-size:clamp(26px,4vw,33px);margin:0;line-height:1.05;letter-spacing:-.02em;}
+.h3{font-weight:600;font-size:21px;margin:0;line-height:1.15;letter-spacing:-.01em;}
+.label{font-family:"Spline Sans Mono",monospace;font-size:11px;font-weight:400;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--sub);
+  display:flex;align-items:center;gap:14px;margin:0 0 26px;}
+.label::after{content:"";flex:1;height:1px;background:var(--muted2);}
+/* Vanlig seksjonsoverskrift (bryter den ensformige mono-etikett-rytmen) */
+.shead{font-family:"Schibsted Grotesk",system-ui,sans-serif;font-weight:600;
+  font-size:clamp(23px,3.2vw,29px);line-height:1.1;letter-spacing:-.02em;
+  color:var(--ink);margin:0 0 28px;text-wrap:balance;}
+.about-bio .shead{margin:0;}
+
+/* ---------- buttons / tags ---------- */
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:"Spline Sans Mono",monospace;
+  font-size:12.5px;font-weight:700;padding:11px 18px;background:var(--accent-strong);
+  color:var(--accent-contrast);
+  border:1.5px solid var(--accent-ink);border-radius:9px;cursor:pointer;
+  transition:filter .15s,transform .15s;}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+.btn.ghost:hover{border-color:var(--accent-ink);color:var(--accent-ink);filter:none;}
+.btnrow{display:flex;gap:13px;flex-wrap:wrap;margin-top:26px;}
+.tag{font-family:"Spline Sans Mono",monospace;font-size:11.5px;letter-spacing:.04em;
+  padding:4px 10px;border:1.5px solid var(--muted);border-radius:20px;color:var(--sub);}
+.tag.green{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);}
+.taglist{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* ---------- photo placeholder ----------
+   Sett `image` på et prosjekt i content.js for å bruke et ekte bilde. */
+.photo{
+  position:relative;border:1px solid var(--line);border-radius:10px;
+  background-color:var(--img);
+  background-image:
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--muted) 50%, transparent calc(50% + 1px)),
+    linear-gradient(to top left, transparent calc(50% - 1px), var(--muted) 50%, transparent calc(50% + 1px));
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;width:100%;overflow:hidden;}
+.photo.soft{background-color:var(--img2);}
+.photo.has-img{background-image:none;}
+.photo > span{font-family:"Spline Sans Mono",monospace;font-size:11px;color:var(--sub);
+  background:var(--card);padding:3px 9px;border-radius:4px;border:1px solid var(--muted2);}
+.photo img{width:100%;height:100%;object-fit:cover;}
+
+/* ---------- hero ---------- */
+.hero{padding:240px 0 80px;overflow:hidden;}
+
+/* ---------- prosjektvideo (embed) ---------- */
+.video-embed{position:relative;width:100%;aspect-ratio:16/9;border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;background:var(--img);}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+/* ---------- project detail sections ---------- */
+.project-detail{scroll-margin-top:100px;}
+.project-detail .shead{margin-top:6px;}
+.project-detail-photo{height:clamp(220px,38vw,340px);margin-top:4px;}
+.project-detail-meta{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:30px;margin-top:24px;flex-wrap:wrap;}
+.project-detail-meta .txt{max-width:560px;}
+.project-detail-meta p{color:var(--sub);margin:12px 0 0;}
+.cap .num{color:var(--sub);font-family:"Spline Sans Mono",monospace;font-size:.85em;}
+
+/* ---------- portrett (om meg) ---------- */
+.about-col .about-photo{width:100%;max-width:330px;aspect-ratio:4/5;}
+
+/* ---------- project grid ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+/* 4. kort alene i nederste rad sentreres i midtkolonnen for symmetri */
+.grid3 > :nth-child(4){grid-column:2;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;
+  padding:13px;display:block;}
+.card .photo{height:155px;}
+.card .cap{display:flex;align-items:center;justify-content:space-between;margin-top:13px;gap:10px;}
+.card .cap strong{font-size:16px;font-weight:600;letter-spacing:-.01em;}
+
+/* ---------- om + interesser (side om side) ---------- */
+.om-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(32px,5vw,56px);align-items:start;}
+/* bio-tekst i full bredde, flyter under både portrett og interesser */
+.about-bio{grid-column:1 / -1;}
+.about-bio p{color:var(--sub);margin:14px 0 0;text-wrap:pretty;}
+/* tjeneste-radene smalner til én kolonne i den halve bredden */
+.services-col .service{grid-template-columns:1fr;gap:6px;padding:22px 0;}
+.services-col .service:first-child{padding-top:0;}
+
+/* ---------- services (redaksjonell liste, ikke 3 like kort) ---------- */
+.services-list{display:flex;flex-direction:column;}
+.service{display:grid;grid-template-columns:minmax(0,240px) 1fr;gap:clamp(20px,4vw,48px);
+  align-items:baseline;padding:26px 0;border-top:1px solid var(--muted2);}
+.service:first-child{border-top:0;padding-top:4px;}
+.service h3{font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:21px;font-weight:600;
+  line-height:1.15;letter-spacing:-.01em;margin:0;color:var(--ink);}
+.service p{color:var(--sub);margin:0;font-size:15px;max-width:60ch;}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;padding-left:32px;}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--muted);}
+.tl .row{position:relative;padding:0 0 30px;}
+.tl .row:last-child{padding-bottom:0;}
+.tl .dot{position:absolute;left:-32px;top:4px;width:14px;height:14px;
+  border-radius:50%;background:var(--card);border:2.5px solid var(--accent);}
+.tl .yr{font-family:"Spline Sans Mono",monospace;font-size:12px;color:var(--accent-ink);}
+.tl .ti{font-size:18px;font-weight:600;line-height:1.15;letter-spacing:-.01em;margin:5px 0 8px;}
+.tl p{color:var(--sub);margin:0;max-width:580px;font-size:15px;}
+
+/* ---------- contact ---------- */
+.bigcontact{font-weight:700;font-size:clamp(32px,6vw,46px);line-height:1;
+  letter-spacing:-.03em;margin:0;}
+.pill{display:inline-flex;align-items:center;gap:9px;font-family:"Spline Sans Mono",monospace;
+  font-size:13px;border:1.5px solid var(--line);border-radius:30px;padding:10px 17px;
+  transition:border-color .15s,color .15s;}
+.pill:hover{border-color:var(--accent-ink);color:var(--accent-ink);}
+
+/* ---------- footer ---------- */
+.foot{display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:26px 0;font-family:"Spline Sans Mono",monospace;font-size:11px;color:var(--sub);
+  flex-wrap:wrap;}
+
+/* ---------- responsive ---------- */
+@media(max-width:760px){
+  .nav .links{display:none;position:absolute;top:calc(100% + 10px);left:0;right:0;
+    flex-direction:column;gap:0;overflow:hidden;
+    background:rgba(7,11,18,.55);backdrop-filter:blur(16px) saturate(1.3);
+    -webkit-backdrop-filter:blur(16px) saturate(1.3);
+    border:1px solid rgba(232,238,245,.10);border-radius:18px;
+    box-shadow:0 10px 34px rgba(0,0,0,.40);}
+  .nav .links.open{display:flex;}
+  .nav .links a{padding:13px 20px;width:100%;border-top:1px solid var(--muted2);text-align:center;}
+  .nav .links a:first-child{border-top:0;}
+  .nav .links .cta{border-radius:0;border:0;border-top:1px solid var(--muted2);}
+  .nav .menu-btn{display:block;}
+  .grid3{grid-template-columns:1fr 1fr;}
+  .grid3 > :nth-child(4){grid-column:auto;}
+  .service{grid-template-columns:1fr;gap:6px;padding:22px 0;}
+  .om-grid{grid-template-columns:1fr;gap:48px;}
+  .about-col .about-photo{max-width:280px;}
+}
+@media(max-width:480px){
+  .grid3{grid-template-columns:1fr;}
+}
+
+/* Respekter brukerens reduced-motion-innstilling */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+  html{scroll-behavior:auto;}
+}

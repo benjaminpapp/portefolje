@@ -1,0 +1,54 @@
+/* MagicBento-effekter tonet til deep-space/emerald. --magic-glow settes
+   per kort (RGB-trippel), faller tilbake på emerald-aksenten. */
+
+.magic-card {
+  position: relative;
+  overflow: hidden;
+  --magic-glow: 54, 224, 160;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 260px;
+}
+
+/* kant-glød som følger markøren (maskert til kun rammen) */
+.magic-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(var(--magic-glow), calc(var(--glow-intensity) * 0.9)) 0%,
+    rgba(var(--magic-glow), calc(var(--glow-intensity) * 0.4)) 30%,
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+/* mykt halo-skjær når kortet er aktivt */
+.magic-card:hover {
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(var(--magic-glow), 0.12);
+}
+
+.magic-particle::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: rgba(var(--magic-glow), 0.2);
+  z-index: -1;
+}
+
+.magic-spotlight {
+  will-change: transform, opacity;
+  pointer-events: none;
+}
