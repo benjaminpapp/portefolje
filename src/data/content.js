@@ -159,7 +159,7 @@ export const experience = [
 export const contact = {
   heading: "La oss ta en prat →",
   links: [
-    { label: "✉ hei@benjaminpapp.no", href: "mailto:hei@benjaminpapp.no" },
+    { label: "✉ benjamin.thorsen.papp@gmail.com", href: "mailto:benjamin.thorsen.papp@gmail.com" },
     { label: "in / LinkedIn", href: "https://www.linkedin.com/in/benjaminthorsenpapp" },
     { label: "⌥ GitHub", href: "https://github.com/" },
   ],
