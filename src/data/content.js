@@ -36,12 +36,12 @@ export const projects = [
     num: "02",
     title: "Nettside",
     tag: "Web",
-    image: `${import.meta.env.BASE_URL}projects/nettside/after.png`,
+    image: `${import.meta.env.BASE_URL}projects/nettside/forside-after-v2.png`,
     comparisons: [
       {
         label: "Forside",
         before: `${import.meta.env.BASE_URL}projects/nettside/before.png`,
-        after: `${import.meta.env.BASE_URL}projects/nettside/after.png`,
+        after: `${import.meta.env.BASE_URL}projects/nettside/forside-after-v2.png`,
       },
       {
         label: "Om oss",
