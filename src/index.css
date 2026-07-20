@@ -275,6 +275,9 @@ button{font:inherit;}
 .service p{color:var(--sub);margin:0;font-size:15px;max-width:60ch;}
 
 /* ---------- timeline ---------- */
+/* to tidslinjer side om side (Erfaring + Utdanning) */
+.tl-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:start;}
+@media(max-width:760px){.tl-cols{grid-template-columns:1fr;gap:44px;}}
 .tl{position:relative;padding-left:32px;}
 .tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--muted);}
 .tl .row{position:relative;padding:0 0 30px;}

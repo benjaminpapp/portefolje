@@ -130,11 +130,6 @@ export const services = [
 
 export const experience = [
   {
-    years: "2023 — 2026",
-    title: "Bachelor i IT og informasjonssystemer",
-    text: "Universitetet i Agder, fullført 2026. Bachelorprosjektet Farmchart var en pipeline for digitale tvillinger til presisjonslandbruk, nøyaktige helt ned på bærnivå.",
-  },
-  {
     years: "2026",
     title: "Webutvikler for Revisorsenteret Mandal",
     text: "Etter studieslutt designet og bygde jeg nettsiden revisorsenteretmandal.no for revisjonsselskapet.",
@@ -148,6 +143,14 @@ export const experience = [
     years: "2021 — 2023",
     title: "Operatør og objektleder hos Skan-Kontroll",
     text: "Overvåkning, hendelseshåndtering, risikovurdering og operativt ansvar ved vaktsentral.",
+  },
+]
+
+export const education = [
+  {
+    years: "2023 — 2026",
+    title: "Bachelor i IT og informasjonssystemer",
+    text: "Universitetet i Agder, fullført 2026. Bachelorprosjektet Farmchart var en pipeline for digitale tvillinger til presisjonslandbruk, nøyaktige helt ned på bærnivå.",
   },
   {
     years: "2017 — 2019",
