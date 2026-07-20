@@ -42,11 +42,11 @@ export default function Timeline() {
       <div className="wrap">
         <div className="tl-cols">
           <div>
-            <Reveal as="h2" className="label">Erfaring</Reveal>
+            <Reveal as="h2" className="shead">Erfaring</Reveal>
             <Track items={experience} />
           </div>
           <div>
-            <Reveal as="h2" className="label">Utdanning</Reveal>
+            <Reveal as="h2" className="shead">Utdanning</Reveal>
             <Track items={education} />
           </div>
         </div>
