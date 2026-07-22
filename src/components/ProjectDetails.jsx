@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Reveal } from "./motion"
 import Photo from "./Photo"
+import ProjectGallery from "./ProjectGallery"
 import Lightbox from "./Lightbox"
 import { projects } from "../data/content"
 
@@ -65,17 +66,7 @@ export default function ProjectDetails() {
                   ))}
                 </div>
               ) : p.images ? (
-                <div className="project-gallery">
-                  {p.images.map((src, i) => (
-                    <Photo
-                      key={src}
-                      src={src}
-                      alt={`${p.title} skjermbilde ${i + 1}`}
-                      className="project-gallery-photo"
-                      onClick={() => open(src, `${p.title} skjermbilde ${i + 1}`)}
-                    />
-                  ))}
-                </div>
+                <ProjectGallery images={p.images} title={p.title} onOpen={open} />
               ) : (
                 <Photo
                   src={p.image}
@@ -89,7 +80,9 @@ export default function ProjectDetails() {
             <Reveal className="project-detail-meta" delay={0.1}>
               <div className="txt">
                 <span className="tag">{p.tag}</span>
-                <p>{p.text}</p>
+                {(Array.isArray(p.text) ? p.text : [p.text]).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
               </div>
               {p.link && (
                 <a href={p.link.href} target="_blank" rel="noopener noreferrer" className="btn">

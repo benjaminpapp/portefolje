@@ -67,13 +67,14 @@ export const projects = [
       `${import.meta.env.BASE_URL}projects/revisjonsprogram/lookup.png`,
       `${import.meta.env.BASE_URL}projects/revisjonsprogram/autoexcel.png`,
     ],
-    text:
+    text: [
       "Sideprosjekt med bachelorgruppa ved siden av bacheloroppgaven. RS-Innsyn " +
-      "er en skrivebordsapplikasjon som slår opp krav og betalinger mot " +
-      "Skatteetatens API-er: enkeltoppslag på organisasjonsnummer, eller " +
-      "batchkjøring av en hel Excel-fil. Kobler seg til via Maskinporten og " +
-      "automatiserer revisjonsdokumentasjon. I daglig drift hos kunden og " +
-      "erstatter manuelle prosesser.",
+        "er en skrivebordsapplikasjon som slår opp krav og betalinger mot " +
+        "Skatteetatens API-er: enkeltoppslag på organisasjonsnummer, eller " +
+        "batchkjøring av en hel Excel-fil.",
+      "Kobler seg til via Maskinporten og automatiserer revisjonsdokumentasjon. " +
+        "I daglig drift hos kunden og erstatter manuelle prosesser.",
+    ],
   },
   {
     id: "luna",

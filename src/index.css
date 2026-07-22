@@ -190,7 +190,10 @@ button{font:inherit;}
 .video-still{height:auto;margin-top:16px;background-color:var(--img);cursor:zoom-in;}
 .video-still img{height:auto;object-fit:contain;}
 .project-gallery{display:flex;gap:14px;margin-top:4px;overflow-x:auto;padding-bottom:6px;
-  scroll-snap-type:x proximity;}
+  scroll-snap-type:x proximity;cursor:grab;}
+/* mens man drar: ingen grab-hånd, ingen tekst/bilde-markering, ingen snap-motstand */
+.project-gallery.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none;}
+.project-gallery img{-webkit-user-drag:none;user-select:none;}
 /* galleribilder får høyde satt; bredden følger bildets eget format
    (fungerer for både stående mobilskjermbilder og liggende desktop-skjermbilder) */
 .project-gallery-photo{flex:0 0 auto;width:auto;height:clamp(340px,58vw,540px);
@@ -236,10 +239,12 @@ button{font:inherit;}
   cursor:pointer;transition:filter .15s,transform .15s;}
 .lightbox-close:hover{filter:brightness(1.12);transform:scale(1.05);}
 @keyframes lb-fade{from{opacity:0;}to{opacity:1;}}
-.project-detail-meta{display:flex;justify-content:space-between;align-items:flex-end;
-  gap:30px;margin-top:24px;flex-wrap:wrap;}
-.project-detail-meta .txt{max-width:560px;}
-.project-detail-meta p{color:var(--sub);margin:12px 0 0;}
+.project-detail-meta{display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:24px;margin-top:28px;}
+/* smalere måltall for sentrert brødtekst (~58ch leser roligere enn full bredde) */
+.project-detail-meta .txt{max-width:58ch;margin-inline:auto;}
+.project-detail-meta p{color:var(--sub);margin:15px auto 0;font-size:16px;line-height:1.7;
+  text-wrap:pretty;}
 .cap .num{color:var(--sub);font-family:"Spline Sans Mono",monospace;font-size:.85em;}
 
 /* ---------- portrett (om meg) ---------- */
