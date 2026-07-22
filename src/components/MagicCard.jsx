@@ -54,7 +54,6 @@ export function MagicCard({
   const hovered = useRef(false)
   const memoParticles = useRef([])
   const seeded = useRef(false)
-  const magnetTween = useRef(null)
   const disabled = useDisableAnimations()
 
   const seedParticles = useCallback(() => {
@@ -69,7 +68,6 @@ export function MagicCard({
   const clearParticles = useCallback(() => {
     timeouts.current.forEach(clearTimeout)
     timeouts.current = []
-    magnetTween.current?.kill()
     liveParticles.current.forEach((p) => {
       gsap.to(p, {
         scale: 0,
@@ -111,6 +109,14 @@ export function MagicCard({
     const el = ref.current
     if (disabled || !el) return
 
+    // quickTo lager settere én gang og gjenbruker samme tween — ingen ny
+    // tween-allokering per mousemove (unngår GC-churn på den varme stien).
+    gsap.set(el, { transformPerspective: 1000 })
+    const qRotX = gsap.quickTo(el, "rotateX", { duration: 0.2, ease: "power2.out" })
+    const qRotY = gsap.quickTo(el, "rotateY", { duration: 0.2, ease: "power2.out" })
+    const qX = gsap.quickTo(el, "x", { duration: 0.3, ease: "power2.out" })
+    const qY = gsap.quickTo(el, "y", { duration: 0.3, ease: "power2.out" })
+
     const onEnter = () => {
       hovered.current = true
       if (enableStars) spawnParticles()
@@ -119,9 +125,10 @@ export function MagicCard({
     const onLeave = () => {
       hovered.current = false
       clearParticles()
-      if (enableTilt || enableMagnetism) {
-        gsap.to(el, { rotateX: 0, rotateY: 0, x: 0, y: 0, duration: 0.3, ease: "power2.out" })
-      }
+      // Nullstill via de samme quickTo-setterne — ikke en konkurrerende gsap.to,
+      // ellers kjemper to tweens om samme transform (rykkete kort-til-kort).
+      if (enableTilt) { qRotX(0); qRotY(0) }
+      if (enableMagnetism) { qX(0); qY(0) }
     }
 
     const onMove = (e) => {
@@ -132,21 +139,12 @@ export function MagicCard({
       const cx = rect.width / 2
       const cy = rect.height / 2
       if (enableTilt) {
-        gsap.to(el, {
-          rotateX: ((y - cy) / cy) * -7,
-          rotateY: ((x - cx) / cx) * 7,
-          duration: 0.1,
-          ease: "power2.out",
-          transformPerspective: 1000,
-        })
+        qRotX(((y - cy) / cy) * -7)
+        qRotY(((x - cx) / cx) * 7)
       }
       if (enableMagnetism) {
-        magnetTween.current = gsap.to(el, {
-          x: (x - cx) * 0.04,
-          y: (y - cy) * 0.04,
-          duration: 0.3,
-          ease: "power2.out",
-        })
+        qX((x - cx) * 0.04)
+        qY((y - cy) * 0.04)
       }
       // border-glow følger markøren
       el.style.setProperty("--glow-x", `${(x / rect.width) * 100}%`)
@@ -226,6 +224,13 @@ export function MagicSpotlight({ gridRef, glowColor = DEFAULT_GLOW, spotlightRad
     document.body.appendChild(spot)
     spotRef.current = spot
 
+    // Kortene hentes én gang (rutenettet er stabilt), ikke per mousemove.
+    const cards = grid.querySelectorAll(".magic-card")
+    // Gjenbrukbare settere — ingen ny tween per bevegelse.
+    const setLeft = gsap.quickTo(spot, "left", { duration: 0.1, ease: "power2.out" })
+    const setTop = gsap.quickTo(spot, "top", { duration: 0.1, ease: "power2.out" })
+    const setSpotOpacity = gsap.quickTo(spot, "opacity", { duration: 0.3, ease: "power2.out" })
+
     const proximity = spotlightRadius * 0.5
     const fade = spotlightRadius * 0.75
 
@@ -234,9 +239,8 @@ export function MagicSpotlight({ gridRef, glowColor = DEFAULT_GLOW, spotlightRad
       const rect = grid.getBoundingClientRect()
       const inside =
         e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom
-      const cards = grid.querySelectorAll(".magic-card")
       if (!inside) {
-        gsap.to(spotRef.current, { opacity: 0, duration: 0.3, ease: "power2.out" })
+        setSpotOpacity(0)
         cards.forEach((c) => c.style.setProperty("--glow-intensity", "0"))
         return
       }
@@ -255,15 +259,16 @@ export function MagicSpotlight({ gridRef, glowColor = DEFAULT_GLOW, spotlightRad
         c.style.setProperty("--glow-intensity", `${glow}`)
         c.style.setProperty("--glow-radius", `${spotlightRadius}px`)
       })
-      gsap.to(spotRef.current, { left: e.clientX, top: e.clientY, duration: 0.1, ease: "power2.out" })
+      setLeft(e.clientX)
+      setTop(e.clientY)
       const opacity =
         minDist <= proximity ? 0.8 : minDist <= fade ? ((fade - minDist) / (fade - proximity)) * 0.8 : 0
-      gsap.to(spotRef.current, { opacity, duration: opacity > 0 ? 0.2 : 0.5, ease: "power2.out" })
+      setSpotOpacity(opacity)
     }
 
     const onLeave = () => {
-      grid.querySelectorAll(".magic-card").forEach((c) => c.style.setProperty("--glow-intensity", "0"))
-      if (spotRef.current) gsap.to(spotRef.current, { opacity: 0, duration: 0.3, ease: "power2.out" })
+      cards.forEach((c) => c.style.setProperty("--glow-intensity", "0"))
+      if (spotRef.current) setSpotOpacity(0)
     }
 
     document.addEventListener("mousemove", onMove)

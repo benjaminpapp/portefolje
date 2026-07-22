@@ -22,7 +22,7 @@ export default function Projects() {
                 <MagicCard as="a" href={`#${p.id}`} className="card">
                   <Photo src={p.image} label="bilde" alt={p.title} />
                   <div className="cap">
-                    <strong><span className="num">{p.num}</span> {p.title}</strong>
+                    <strong>{p.title}</strong>
                     <span className="tag">{p.tag}</span>
                   </div>
                 </MagicCard>

@@ -40,10 +40,31 @@ const DotField = memo(({
     const ctx = canvas.getContext('2d', { alpha: true });
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let resizeTimer;
+    // Bygges én gang per resize i stedet for hver frame.
+    let grad = null;
+    // Løkka stopper når feltet er i ro og starter igjen ved musebevegelse.
+    let running = false;
+    let idleFrames = 0;
 
     function resize() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(doResize, 100);
+    }
+
+    function buildGradient() {
+      const { w, h } = sizeRef.current;
+      const p = propsRef.current;
+      grad = ctx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, p.gradientFrom);
+      grad.addColorStop(1, p.gradientTo);
+    }
+
+    function ensureRunning() {
+      if (!running) {
+        running = true;
+        idleFrames = 0;
+        rafRef.current = requestAnimationFrame(tick);
+      }
     }
 
     function doResize() {
@@ -65,6 +86,9 @@ const DotField = memo(({
       };
 
       buildDots(w, h);
+      buildGradient();
+      // Mål kan endres mens løkka står stille — kjør minst én frame så feltet males på nytt.
+      ensureRunning();
     }
 
     function buildDots(w, h) {
@@ -92,6 +116,7 @@ const DotField = memo(({
     function onMouseMove(e) {
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
+      ensureRunning();
     }
 
     function updateMouseSpeed() {
@@ -125,6 +150,10 @@ const DotField = memo(({
 
       glowOpacity.current += (eng - glowOpacity.current) * 0.08;
 
+      // Tell opp inaktive frames; stopp løkka når feltet har roet seg.
+      if (eng > 0.001 || glowOpacity.current > 0.01) idleFrames = 0;
+      else idleFrames++;
+
       if (glowEl) {
         glowEl.setAttribute('cx', m.x);
         glowEl.setAttribute('cy', m.y);
@@ -133,10 +162,7 @@ const DotField = memo(({
 
       ctx.clearRect(0, 0, w, h);
 
-      const grad = ctx.createLinearGradient(0, 0, w, h);
-      grad.addColorStop(0, p.gradientFrom);
-      grad.addColorStop(1, p.gradientTo);
-      ctx.fillStyle = grad;
+      if (grad) ctx.fillStyle = grad;
 
       const cr = p.cursorRadius;
       const crSq = cr * cr;
@@ -203,13 +229,17 @@ const DotField = memo(({
 
       ctx.fill();
 
+      // ~2s uten aktivitet: la feltet stå stille til neste musebevegelse.
+      if (idleFrames > 120) {
+        running = false;
+        return;
+      }
       rafRef.current = requestAnimationFrame(tick);
     }
 
-    doResize();
+    doResize(); // kjører ensureRunning() → starter løkka
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', onMouseMove, { passive: true });
-    rafRef.current = requestAnimationFrame(tick);
 
     rebuildRef.current = () => {
       const { w, h } = sizeRef.current;
