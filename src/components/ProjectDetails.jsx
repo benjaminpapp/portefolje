@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Reveal } from "./motion"
 import Photo from "./Photo"
-import ProjectGallery from "./ProjectGallery"
 import Lightbox from "./Lightbox"
 import { projects } from "../data/content"
 
@@ -66,7 +65,17 @@ export default function ProjectDetails() {
                   ))}
                 </div>
               ) : p.images ? (
-                <ProjectGallery images={p.images} title={p.title} onOpen={open} />
+                <div className="project-gallery">
+                  {p.images.map((src, i) => (
+                    <Photo
+                      key={src}
+                      src={src}
+                      alt={`${p.title} skjermbilde ${i + 1}`}
+                      className="project-gallery-photo"
+                      onClick={() => open(src, `${p.title} skjermbilde ${i + 1}`)}
+                    />
+                  ))}
+                </div>
               ) : (
                 <Photo
                   src={p.image}

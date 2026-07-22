@@ -190,10 +190,7 @@ button{font:inherit;}
 .video-still{height:auto;margin-top:16px;background-color:var(--img);cursor:zoom-in;}
 .video-still img{height:auto;object-fit:contain;}
 .project-gallery{display:flex;gap:14px;margin-top:4px;overflow-x:auto;padding-bottom:6px;
-  scroll-snap-type:x proximity;cursor:grab;}
-/* mens man drar: ingen grab-hånd, ingen tekst/bilde-markering, ingen snap-motstand */
-.project-gallery.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none;}
-.project-gallery img{-webkit-user-drag:none;user-select:none;}
+  scroll-snap-type:x proximity;}
 /* galleribilder får høyde satt; bredden følger bildets eget format
    (fungerer for både stående mobilskjermbilder og liggende desktop-skjermbilder) */
 .project-gallery-photo{flex:0 0 auto;width:auto;height:clamp(340px,58vw,540px);
