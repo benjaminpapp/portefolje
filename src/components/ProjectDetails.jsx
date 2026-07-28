@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Reveal } from "./motion"
 import Photo from "./Photo"
 import Lightbox from "./Lightbox"
+import SplatViewerLazy from "./SplatViewerLazy"
 import { projects } from "../data/content"
 
 export default function ProjectDetails() {
@@ -16,7 +17,16 @@ export default function ProjectDetails() {
           <div className="wrap">
             <Reveal as="h2" className="shead">{p.title}</Reveal>
             <Reveal delay={0.05}>
-              {p.video ? (
+              {p.splat ? (
+                <SplatViewerLazy
+                  url={p.splat}
+                  className="project-splat"
+                  height="clamp(340px, 56vw, 560px)"
+                  placeholderSrc={p.image || undefined}
+                  enableManualZoom={false}
+                  autoRotate
+                />
+              ) : p.video ? (
                 <>
                   <div className="video-embed">
                     <iframe

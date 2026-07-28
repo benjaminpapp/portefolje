@@ -27,13 +27,27 @@ export const projects = [
     image: `${import.meta.env.BASE_URL}projects/farmchart/twin.png`,
     video: "9AF6lGd-Tv8",
     text:
-      "Bacheloroppgaven min: en uavhengig tech-stack for presisjonslandbruk. " +
-      "Vi bygde en pipeline som genererer digitale tvillinger nøyaktige helt ned " +
-      "på bærnivå, med AI i kjernen.",
+      "Bacheloroppgaven min: En  pipeline tech-stack for presisjonslandbruk. " +
+      "Vi lagde en pipeline som kan generere en digital twin som er nøyaktige helt ned " +
+      "på bærnivå",
+  },
+  {
+    id: "3dgs",
+    num: "02",
+    title: "Gaussian splatting",
+    tag: "3D",
+    // Stillbilde av scenen: brukes som kortminiatyr og som uskarp plassholder
+    // mens splat-filen lastes.
+    image: `${import.meta.env.BASE_URL}projects/3dgs/poster.png`,
+    // .spz, ikke .ply: 65 MB → 7,4 MB. Rå .ply ligger utenfor git (se .gitignore).
+    splat: `${import.meta.env.BASE_URL}projects/3dgs/Potteplante.spz`,
+    text:
+      "Plante som har blitt rekonstruert som en 3DGS ved bruk av fotogrammetri og structure from motion. " +
+      "262 000 splats.",
   },
   {
     id: "nettside",
-    num: "02",
+    num: "03",
     title: "Nettside",
     tag: "Web",
     image: `${import.meta.env.BASE_URL}projects/nettside/forside-after-v2.png`,
@@ -52,13 +66,13 @@ export const projects = [
     text:
       "Revisorsenteret Mandal hadde en utdatert nettside. Jeg redesignet og " +
       "bygde den på nytt fra bunnen, med ny visuell identitet, tydeligere " +
-      "struktur og bearbeidet innhold, til en moderne og tillitsvekkende side. " +
+      "struktur og bearbeidet innhold, til en mer moderne og tillitsvekkende side. " +
       "Under ser du før og etter.",
     link: { label: "Besøk revisorsenteretmandal.no →", href: "https://revisorsenteretmandal.no" },
   },
   {
     id: "revisjonsprogram",
-    num: "03",
+    num: "04",
     title: "Revisjonsprogram",
     tag: "Desktop",
     image: `${import.meta.env.BASE_URL}projects/revisjonsprogram/oppsett.png`,
@@ -78,7 +92,7 @@ export const projects = [
   },
   {
     id: "luna",
-    num: "04",
+    num: "05",
     title: "Luna App",
     tag: "App",
     image: `${import.meta.env.BASE_URL}projects/luna/home.jpg`,
@@ -101,11 +115,11 @@ export const about = {
   heading: "Hei, jeg er Benjamin!",
   image: `${import.meta.env.BASE_URL}meg.jpg`,
   text:
-    "Jeg er nyutdannet med bachelor i IT og informasjonssystemer, og det jeg synes er morro er " +
-    "å stå fast i et problem, grave meg gjennom det, og kjenne mestringsfølelsen " +
+    "Nyutdannet med en bachelor i IT og informasjonssystemer, og det jeg synes er spennende er " +
+    "å få et problem, jobbe meg gjennom det, og kjenne mestringsfølelsen " +
     "når brikkene endelig faller på plass. Veldig nysgjerrig, strukturert og glad i å " +
     "være kreativ, med sansen for å gjøre kompliserte ting enkle. Jeg er en stor AI entusiast " +
-    "og ser verdien av å kunne bruke den type teknologi på riktig måte.",
+    "og ser verdien av å kunne bruke AI teknologi på riktig måte.",
   text2:
     "Jeg har erfaring med å jobbe i team gjennom både studier og prosjekter, hvor " +
     "samarbeid, kommunikasjon og felles måloppnåelse har vært sentralt. Jeg har " +
@@ -121,11 +135,15 @@ export const services = [
   },
   {
     title: "Data & analyse",
-    text: "Å finne struktur og innsikt i rotete data. Spørringer som svarer på noe ekte er det jeg liker best.",
+    text: "Å finne struktur og innsikt i rotete data.",
   },
   {
     title: "UX & grensesnitt",
-    text: "Rene, rolige grensesnitt bygget rundt hvordan folk faktisk jobber. Her vil jeg lære mest mulig.",
+    text: "Rene, enkle grensesnitt bygget rundt hvordan folk faktisk jobber. Her vil jeg lære mest mulig.",
+  },
+  {
+    title: "Gaussian splatting",
+    text: "Foto-realistiske 3D objekter.",
   },
 ]
 

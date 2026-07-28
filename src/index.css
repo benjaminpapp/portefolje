@@ -186,6 +186,8 @@ button{font:inherit;}
 .project-detail{scroll-margin-top:100px;}
 .project-detail .shead{margin-top:6px;}
 .project-detail-photo{height:clamp(220px,38vw,340px);margin-top:4px;}
+/* 3dgs-visning: ingen ramme eller flate — splatten skal flyte på seksjonen */
+.project-splat{margin-top:4px;}
 /* stillbilde under video: vis hele bildet, ikke beskåret */
 .video-still{height:auto;margin-top:16px;background-color:var(--img);cursor:zoom-in;}
 .video-still img{height:auto;object-fit:contain;}
@@ -248,9 +250,14 @@ button{font:inherit;}
 .about-col .about-photo{width:100%;max-width:330px;aspect-ratio:4/5;}
 
 /* ---------- project grid ---------- */
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-/* 4. kort alene i nederste rad sentreres i midtkolonnen for symmetri */
-.grid3 > :nth-child(4){grid-column:2;}
+/* 6 spor = 3 kort i bredden, men halve steg å forskyve med. Det lar en
+   ufullstendig siste rad sentreres uansett om det er ett eller to kort igjen. */
+.grid3{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;}
+.grid3 > *{grid-column:span 2;}
+/* siste kort alene (4, 7, … prosjekter) → midtstilt */
+.grid3 > :nth-child(4):nth-last-child(1){grid-column:3/span 2;}
+/* to kort igjen (5 prosjekter) → paret midtstilles */
+.grid3 > :nth-child(4):nth-last-child(2){grid-column:2/span 2;}
 .card{background:var(--card);border:1px solid var(--line);border-radius:13px;
   padding:13px;display:block;}
 .card .photo{height:155px;}
@@ -316,14 +323,17 @@ button{font:inherit;}
   .nav .links a:first-child{border-top:0;}
   .nav .links .cta{border-radius:0;border:0;border-top:1px solid var(--muted2);}
   .nav .menu-btn{display:block;}
-  .grid3{grid-template-columns:1fr 1fr;}
-  .grid3 > :nth-child(4){grid-column:auto;}
+  /* 4 spor = 2 kort i bredden. Midtstillingen slås av: med partall kolonner
+     fyller radene seg opp av seg selv. */
+  .grid3{grid-template-columns:repeat(4,1fr);}
+  .grid3 > :nth-child(4):nth-last-child(1),
+  .grid3 > :nth-child(4):nth-last-child(2){grid-column:span 2;}
   .service{grid-template-columns:1fr;gap:6px;padding:22px 0;}
   .om-grid{grid-template-columns:1fr;gap:48px;}
   .about-col .about-photo{max-width:280px;}
 }
 @media(max-width:480px){
-  .grid3{grid-template-columns:1fr;}
+  .grid3{grid-template-columns:repeat(2,1fr);}
 }
 
 /* Respekter brukerens reduced-motion-innstilling */
