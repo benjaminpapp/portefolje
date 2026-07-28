@@ -16,9 +16,10 @@ Meg.jpg
 # Rå kildebilder (originaler, video) – kun optimaliserte kopier i public/ committes
 Bilder til portefølje/
 
-# Gaussian splatting: rå fangstfiler holdes utenfor git. En .ply er 50–500 MB
-# og kan ikke ryddes ut av historikken etterpå. Konverter til .spz i stedet
-# (~9x mindre) — den committes og er det som faktisk deployes.
+# Gaussian splatting: rå fangstfiler ligger i 3dgs/ — utenfor public/, ellers
+# kopieres de inn i dist ved hver build. En .ply er 50–500 MB og kan ikke
+# ryddes ut av git-historikken etterpå. Konverter til .spz (~9x mindre) og
+# legg den i public/projects/ — det er den som committes og deployes.
 *.ply
 *.splat
 *.ksplat
