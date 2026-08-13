@@ -147,21 +147,38 @@ export const services = [
   },
 ]
 
+// Speiler Yrkeserfaring-delen i CV-en. De to Revisorsenteret-oppdragene
+// ligger under `cvProjects`, slik CV-en selv plasserer dem.
 export const experience = [
   {
-    years: "2026",
-    title: "Webutvikler for Revisorsenteret Mandal",
-    text: "Etter studieslutt designet og bygde jeg nettsiden revisorsenteretmandal.no for revisjonsselskapet.",
+    years: "2024 — 2026",
+    title: "Resepsjonist og nattevakt, SKAP Hostell Mandal",
+    text: "Sommerjobb tre sesonger. Resepsjonsdrift med inn- og utsjekk, booking og kundekontakt, nattevakt med selvstendig ansvar for bygget, og administrative oppgaver som forbedring av interne rutiner.",
   },
   {
-    years: "2026",
-    title: "Utvikler hos Revisorsenteret Mandal",
-    text: "Sideprosjekt med bachelorgruppa ved siden av bacheloroppgaven: en skrivebordsapplikasjon som henter data fra Skatteetatens API-er og automatiserer revisjonsdokumentasjon. I daglig drift hos kunden.",
+    years: "2022 — 2023",
+    title: "Operativ leder ved vaktsentral, Skan-Kontroll",
+    text: "Nattlig drift og operativ ledelse: overvåkning og respons på innbrudds- og brannalarmer, koordinering med nødetater, og selvstendig beslutnings- og bemanningsansvar utenfor kontortid.",
   },
   {
-    years: "2021 — 2023",
-    title: "Operatør og objektleder hos Skan-Kontroll",
-    text: "Overvåkning, hendelseshåndtering, risikovurdering og operativt ansvar ved vaktsentral.",
+    years: "2021 — 2022",
+    title: "Objektleder, Skan-Kontroll",
+    text: "Risikovurdering og sikkerhetsarbeid ved kundeobjekter, med operativt ansvar for gjennomføring og oppfølging av sikkerhetstiltak.",
+  },
+  {
+    years: "2016 — 2021",
+    title: "Butikkmedarbeider, Grensen Skotøymagasin",
+    text: "Kundeservice, salg og daglig drift i butikk, parallelt med studier og andre arbeidsforhold.",
+  },
+  {
+    years: "2013 — 2016",
+    title: "Servitør og bartender, SMOI Restaurant",
+    text: "Høyt tempo og mye kundekontakt. Bidro til daglig drift, kundeopplevelse og opplæring av nye ansatte.",
+  },
+  {
+    years: "2012 — 2014",
+    title: "Støttekontakt, Mandal kommune",
+    text: "Tilrettelagt fritids- og aktivitetstilbud for brukere med særskilte behov, tildelt av kommunens tjenestekontor, med sosialisering og inkludering som hovedfokus.",
   },
 ]
 
@@ -169,12 +186,63 @@ export const education = [
   {
     years: "2023 — 2026",
     title: "Bachelor i IT og informasjonssystemer",
-    text: "Universitetet i Agder, fullført 2026. Bachelorprosjektet Farmchart var en pipeline for digitale tvillinger til presisjonslandbruk, nøyaktige helt ned på bærnivå.",
+    text: "Universitetet i Agder, treårig heltidsstudium. Fullført juni 2026.",
+  },
+  {
+    years: "2025",
+    title: "Utveksling, Chung-Ang University",
+    text: "Vårsemesteret 2025 ved School of Computer Science and Engineering i Seoul, Sør-Korea.",
   },
   {
     years: "2017 — 2019",
     title: "Lyd- og musikkproduksjon, Noroff",
-    text: "Fagskoleutdanning som ga meg det kreative grunnlaget jeg fortsatt bygger videre på.",
+    text: "Toårig fagskoleutdanning som ga meg det kreative grunnlaget jeg fortsatt bygger videre på.",
+  },
+  {
+    years: "2013 — 2014",
+    title: "Årsenhet i grunnmedisin, Norges Helsehøyskole",
+    text: "Ettårig studium med anatomi og fysiologi, sykdomslære, samt samfunn, individ og helse.",
+  },
+  {
+    years: "2010 — 2013",
+    title: "Medier og kommunikasjon, Mandal vgs",
+    text: "Med påbygg til generell studiekompetanse.",
+  },
+]
+
+// Tredje tidslinje i CV-seksjonen, ved siden av Erfaring og Utdanning.
+// Speiler Prosjekter-delen i CV-en. `stack` er valgfri og vises som en
+// liten mono-linje under tittelen.
+export const cvProjects = [
+  {
+    years: "Jun 2026",
+    title: "Revisorsenteret Mandal — Webutvikler",
+    stack: "Astro · Tailwind · Docker · GitHub webhooks",
+    text: "Ny nettside for et etablert revisjonsfirma, med vekt på ytelse, tilgjengelighet og lesbarhet. Docker-leveranse med automatisert deploy via webhook, og GDPR-kompatibel skjemahåndtering utarbeidet sammen med daglig leder.",
+  },
+  {
+    years: "Jan — Jun 2026",
+    title: "Farmchart — bacheloroppgave",
+    stack: "Python · 3DGS · LiDAR/SLAM · fotogrammetri · SAM3",
+    text: "Proof-of-concept digital tvilling av frukt- og bærøker, i samarbeid med Digin. Instanssegmenterte 3D-rekonstruksjoner i et delt koordinatsystem, med mulighet for semantiske data til presisjonsovervåking.",
+  },
+  {
+    years: "Jan — Apr 2026",
+    title: "Revisorsenteret Mandal — Utvikler",
+    stack: "TypeScript · React · Electron · Node.js",
+    text: "Sideprosjekt med bachelorgruppa. Skrivebordsapplikasjon som spør Skatteetatens API via Maskinporten (OAuth2/JWT) og effektiviserer den daglige driften. I aktivt bruk hos virksomheten.",
+  },
+  {
+    years: "Sep — Nov 2025",
+    title: "Pairfect",
+    stack: "PHP · MySQL · Gemini API",
+    text: "KI-drevet chatbot som anbefaler vin ut fra matrett, bygget på Google Gemini API. Gruppeprosjekt i universitetsemnet for PHP.",
+  },
+  {
+    years: "Aug — Des 2024",
+    title: "Kartverket",
+    stack: "C# · ASP.NET Core MVC · MariaDB · Docker · EF",
+    text: "Webapplikasjon for innmelding av kartfeil, med interaktiv kartløsning og geolokasjon, filtrerbar saksoversikt og rollebasert tilgangskontroll. Gruppeprosjekt.",
   },
 ]
 

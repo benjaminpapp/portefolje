@@ -284,9 +284,18 @@ button{font:inherit;}
 .service p{color:var(--sub);margin:0;font-size:15px;max-width:60ch;}
 
 /* ---------- timeline ---------- */
-/* to tidslinjer side om side (Erfaring + Utdanning) */
-.tl-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:start;}
-@media(max-width:760px){.tl-cols{grid-template-columns:1fr;gap:44px;}}
+/* tre tidslinjer side om side (Erfaring + Utdanning + Prosjekter).
+   CV-seksjonen får bredere wrap enn resten av siden så spaltene blir lesbare;
+   trygt her fordi seksjonen ikke har innhold som må flukte med 880px-kolonnen. */
+#cv .wrap{max-width:1120px;}
+.tl-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(24px,3.4vw,44px);align-items:start;}
+/* mellomsteg: Erfaring + Utdanning i rad, Prosjekter i full bredde under */
+@media(max-width:1000px){
+  .tl-cols{grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,56px) clamp(32px,5vw,64px);}
+  .tl-cols>:last-child{grid-column:1 / -1;}
+}
+@media(max-width:760px){.tl-cols{grid-template-columns:1fr;gap:44px;}.tl-cols>:last-child{grid-column:auto;}}
 .tl{position:relative;padding-left:32px;}
 .tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--muted);}
 .tl .row{position:relative;padding:0 0 30px;}
@@ -296,6 +305,9 @@ button{font:inherit;}
 .tl .yr{font-family:"Spline Sans Mono",monospace;font-size:12px;color:var(--accent-ink);}
 .tl .ti{font-size:18px;font-weight:600;line-height:1.15;letter-spacing:-.01em;margin:5px 0 8px;}
 .tl p{color:var(--sub);margin:0;max-width:580px;font-size:15px;}
+/* teknologilinje under prosjekttitler */
+.tl p.stack{font-family:"Spline Sans Mono",monospace;font-size:11.5px;line-height:1.5;
+  margin:0 0 7px;opacity:.72;text-wrap:pretty;}
 
 /* ---------- contact ---------- */
 .bigcontact{font-weight:700;font-size:clamp(32px,6vw,46px);line-height:1;

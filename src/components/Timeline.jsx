@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { Reveal } from "./motion"
-import { experience, education } from "../data/content"
+import { experience, education, cvProjects } from "../data/content"
 
 function Track({ items }) {
   return (
@@ -29,6 +29,7 @@ function Track({ items }) {
           />
           <div className="yr">{e.years}</div>
           <h3 className="ti">{e.title}</h3>
+          {e.stack && <p className="stack">{e.stack}</p>}
           <p>{e.text}</p>
         </motion.div>
       ))}
@@ -42,12 +43,16 @@ export default function Timeline() {
       <div className="wrap">
         <div className="tl-cols">
           <div>
-            <Reveal as="h2" className="shead">Erfaring</Reveal>
+            <Reveal as="h2" className="shead">Yrkeserfaring</Reveal>
             <Track items={experience} />
           </div>
           <div>
             <Reveal as="h2" className="shead">Utdanning</Reveal>
             <Track items={education} />
+          </div>
+          <div>
+            <Reveal as="h2" className="shead">Prosjekter</Reveal>
+            <Track items={cvProjects} />
           </div>
         </div>
       </div>
