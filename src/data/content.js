@@ -42,8 +42,7 @@ export const projects = [
     // .spz, ikke .ply: 65 MB → 7,4 MB. Rå .ply ligger utenfor git (se .gitignore).
     splat: `${import.meta.env.BASE_URL}projects/3dgs/Potteplante.spz`,
     text:
-      "Plante som har blitt rekonstruert som en 3DGS ved bruk av fotogrammetri og structure from motion. " +
-      "262 000 splats.",
+      "Plante som har blitt rekonstruert som en 3DGS ved bruk av fotogrammetri og structure from motion.",
   },
   {
     id: "nettside",
@@ -110,9 +109,9 @@ export const projects = [
       "mønstrene dine over tid og finjusterer anbefalingene.",
   },
   {
-    id: "campuscoach",
+    id: "skisser",
     num: "06",
-    title: "CampusCoach",
+    title: "Fra skisse til prototype",
     tag: "UX/UI",
     image: `${import.meta.env.BASE_URL}projects/campuscoach/03-hjem-mentee.webp`,
     // Skissene følger flyten gjennom appen, ikke rekkefølgen de ble tegnet i.
@@ -134,14 +133,11 @@ export const projects = [
       "15-innstillinger",
     ].map((n) => `${import.meta.env.BASE_URL}projects/campuscoach/${n}.webp`),
     text: [
-      "Skissene er første steg i måten jeg jobber på med UX og grensesnitt: " +
-        "hver skjerm tegnes ut for hånd, med piler og notater på hva som skjer " +
-        "hvor, før noe bygges. Da er det billig å kaste en idé og tegne den på " +
-        "nytt, og flyten rekker å sette seg før den låses i et verktøy.",
-      "CampusCoach er en mentorapp for studenter, der mentee og mentor matches " +
-        "og følger hverandre gjennom semesteret. Skissene går gjennom hele " +
-        "flyten — innlogging, registrering, søk og matching, chat, kalender og " +
-        "fremdrift — og ble grunnlaget for den klikkbare prototypen i Figma.",
+      "Skissing er første steg i måten jeg jobber på med UX og grensesnitt. " +
+        "Hver skjerm tegnes ut for hånd, med piler og notater på hva som skjer " +
+        "hvor og hvor brukeren havner videre. En skisse er billig: den kan " +
+        "kastes og tegnes på nytt uten at noe går tapt.",
+      "Skissene her ble tegnet i forkant av en klikkbar prototype i Figma.",
     ],
   },
 ]
