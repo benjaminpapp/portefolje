@@ -11,7 +11,7 @@ export default function Projects() {
   return (
     <section className="sec" id="arbeid">
       <div className="wrap">
-        <Reveal as="h2" className="shead">Prosjekter</Reveal>
+        <Reveal as="h2" className="shead">Arbeid</Reveal>
         <div ref={gridRef}>
           <Stagger className="grid3">
             {projects.map((p) => (

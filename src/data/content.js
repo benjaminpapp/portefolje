@@ -109,6 +109,41 @@ export const projects = [
       "tilpasser seg hvor i syklusen du er, pluss en dagbok som lærer " +
       "mønstrene dine over tid og finjusterer anbefalingene.",
   },
+  {
+    id: "campuscoach",
+    num: "06",
+    title: "CampusCoach",
+    tag: "UX/UI",
+    image: `${import.meta.env.BASE_URL}projects/campuscoach/03-hjem-mentee.webp`,
+    // Skissene følger flyten gjennom appen, ikke rekkefølgen de ble tegnet i.
+    images: [
+      "01-login",
+      "02-registrering",
+      "03-hjem-mentee",
+      "04-hjem-mentor",
+      "05-sok-mentor",
+      "06-sok-mentee",
+      "07-mentorliste",
+      "08-match",
+      "09-match-mentor",
+      "10-chat",
+      "11-kalender",
+      "12-fremdrift",
+      "13-profil-mentor",
+      "14-profil-mentee",
+      "15-innstillinger",
+    ].map((n) => `${import.meta.env.BASE_URL}projects/campuscoach/${n}.webp`),
+    text: [
+      "Skissene er første steg i måten jeg jobber på med UX og grensesnitt: " +
+        "hver skjerm tegnes ut for hånd, med piler og notater på hva som skjer " +
+        "hvor, før noe bygges. Da er det billig å kaste en idé og tegne den på " +
+        "nytt, og flyten rekker å sette seg før den låses i et verktøy.",
+      "CampusCoach er en mentorapp for studenter, der mentee og mentor matches " +
+        "og følger hverandre gjennom semesteret. Skissene går gjennom hele " +
+        "flyten — innlogging, registrering, søk og matching, chat, kalender og " +
+        "fremdrift — og ble grunnlaget for den klikkbare prototypen i Figma.",
+    ],
+  },
 ]
 
 export const about = {

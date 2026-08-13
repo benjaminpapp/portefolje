@@ -15,6 +15,9 @@ Meg.jpg
 
 # Rå kildebilder (originaler, video) – kun optimaliserte kopier i public/ committes
 Bilder til portefølje/
+# Skisser: 15 JPG à ~600 KB (8,7 MB). Optimaliserte WebP-kopier ligger i
+# public/projects/campuscoach/ (0,86 MB til sammen).
+sketches/
 
 # Gaussian splatting: rå fangstfiler ligger i 3dgs/ — utenfor public/, ellers
 # kopieres de inn i dist ved hver build. En .ply er 50–500 MB og kan ikke
