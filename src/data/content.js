@@ -159,6 +159,9 @@ export const about = {
     "samarbeid, kommunikasjon og felles måloppnåelse har vært sentralt. Jeg har " +
     "også arbeidet etter agile arbeidsmetoder, med fokus på fleksibilitet, " +
     "kontinuerlig forbedring og effektiv koordinering mellom teammedlemmer.",
+  text3:
+    "På fritiden liker jeg å holde på med foto, video og musikk, både opptak og " +
+    "etterarbeid. Ellers er jeg mye ute, og driver med fiske og hundetrening.",
   skills: ["Kreativ", "Nysgjerrig", "Gir ikke opp"],
 }
 

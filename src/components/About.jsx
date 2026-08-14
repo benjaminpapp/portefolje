@@ -30,6 +30,7 @@ export default function About() {
             <h2 className="shead">{about.heading}</h2>
             <p>{about.text}</p>
             <p>{about.text2}</p>
+            <p>{about.text3}</p>
             <div className="taglist" style={{ marginTop: 18 }}>
               {about.skills.map((s) => (
                 <span key={s} className="tag">{s}</span>
