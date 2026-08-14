@@ -27,6 +27,7 @@ export default function BeforeAfter({ label, before, after, alt }) {
       />
       <figcaption className="ba-slider-tags">
         <span className="ba-tag ba-tag-after">Etter</span>
+        <span className="ba-slider-hint">Slide for før og etter</span>
         <span className="ba-tag">Før</span>
       </figcaption>
     </figure>

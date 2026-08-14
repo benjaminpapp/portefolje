@@ -66,10 +66,10 @@ export const projects = [
       },
     ],
     text:
-      "Revisorsenteret Mandal hadde en utdatert nettside. Jeg redesignet og " +
-      "bygde den på nytt fra bunnen, med ny visuell identitet, tydeligere " +
-      "struktur og bearbeidet innhold, til en mer moderne og tillitsvekkende side. " +
-      "Under ser du før og etter.",
+      "Revisorsenteret Mandal hadde en ganske utdatert nettside. Nettsiden ble " +
+      "redesignet og bygd på nytt fra bunnen, med en ny visuell identitet og med " +
+      "et fokus på tydeligere struktur og bearbeidet innhold. Resultatet ble en " +
+      "mer moderne og tillitsvekkende side med en klar identitet.",
     link: { label: "Besøk revisorsenteretmandal.no →", href: "https://revisorsenteretmandal.no" },
   },
   {
