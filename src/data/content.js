@@ -58,7 +58,9 @@ export const projects = [
       },
       {
         label: "Om oss",
-        before: `${import.meta.env.BASE_URL}projects/nettside/omoss-before.png`,
+        // v2: beskåret til 2:1 rundt innholdet. Råskjermbildet var 60 % tomt
+        // hvitt, og ble skviset til en tilsynelatende blank rute i rutenettet.
+        before: `${import.meta.env.BASE_URL}projects/nettside/omoss-before-v2.png`,
         after: `${import.meta.env.BASE_URL}projects/nettside/omoss-after.png`,
       },
     ],
