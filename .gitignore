@@ -26,3 +26,7 @@ sketches/
 *.ply
 *.splat
 *.ksplat
+
+# Rå fotofiler fra kamera (53 stk, ~586 MB). Kun nedskalerte .webp-kopier
+# i src/assets/foto/ committes — se den mappas README.
+WeTransfer/

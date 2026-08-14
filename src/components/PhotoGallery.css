@@ -1,0 +1,60 @@
+/* ---------- fotogalleri ---------- */
+.photo-gallery{padding-bottom:0;}
+/* Overskriften sentreres bare her — .shead er venstrestilt ellers på sida. */
+.photo-gallery .shead{text-align:center;}
+.photo-gallery-note{font-family:"Spline Sans Mono",monospace;font-size:12px;color:var(--sub);
+  border:1px dashed var(--muted);border-radius:8px;padding:10px 14px;margin-top:18px;}
+.photo-gallery-note code{color:var(--accent-ink);}
+
+/* Full bredde, men lav høyde: beltet skal ligge som et bånd tvers over sida,
+   ikke fylle skjermen. Full-bleed på samme måte som .comparisons — 100vw
+   alene ville skjøvet seksjonen ut til høyre inne i den sentrerte kolonnen.
+   html/body har overflow-x:clip, så ingen sidescroll.
+   Merk: radien klemmes av høyden (heightGuard = h * 1.35), men minRadius
+   overstyrer den klemmen — derfor holder flisene seg store her. */
+/* Kantene tones ut med maske, ikke med et overlegg. Et overlegg måtte malt
+   flat --paper over hjørnene, og bak seksjonen ligger .starscape og
+   .page-rays — den flate flekken leste som en boks, ikke som en uttoning.
+   Masken senker alfa på selve innholdet, så den ekte bakgrunnen kommer fram.
+   To gradienter (loddrett og vannrett) skjæres mot hverandre: intersect i
+   standarden, source-in i den gamle WebKit-syntaksen. */
+.photo-gallery-dome{position:relative;width:100vw;margin-left:calc(50% - 50vw);
+  height:min(62vh,620px);margin-top:34px;}
+/* Masken ligger på .stage, ikke på hele .photo-gallery-dome: .stage holder
+   flisene, mens .viewer (det forstørrede bildet) er en søsken. Masker vi
+   ytterst, ville også det forstørrede bildet fått kuttet topp og bunn.
+   Bare vannrett uttoning — beltet er to rader høyt og fyller ikke topp og
+   bunn uansett, så en loddrett maske spiste bare fliser. */
+.photo-gallery-dome .stage{
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image:linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);}
+
+/* Kantuskarpheten ligger på edgeBlur-propen, ikke her: komponentens
+   backdrop-filter-lag kan ikke sample flisene (contain:paint på .stage,
+   preserve-3d på .sphere), så det blurrer en tom backdrop uansett verdi. */
+
+/* Innledning: flisene toner inn én etter én når beltet scrolles inn. Kula
+   monteres først når seksjonen nærmer seg viewporten, så «ved montering» er
+   det samme som «ved innscroll» — ingen egen observer trengs.
+   Bare opacity animeres: .item__image bærer transform for 3D-plasseringen,
+   og forstørrelsen måler elementets rect. */
+.sphere-root .item__image{
+  animation:dg-tile-in 620ms ease-out backwards;
+  animation-delay:calc(var(--tile-index, 0) * 28ms);
+}
+@keyframes dg-tile-in{from{opacity:0;}to{opacity:1;}}
+@media (prefers-reduced-motion:reduce){
+  .sphere-root .item__image{animation:none;}
+}
+
+/* z-index 7 legger hintet over både kulas edge-fade (5) og rammen over. */
+.photo-gallery-hint{position:absolute;left:0;right:0;bottom:14px;z-index:7;text-align:center;margin:0;
+  font-family:"Spline Sans Mono",monospace;font-size:11.5px;letter-spacing:.04em;
+  color:var(--sub);pointer-events:none;}
+
+/* Rutenett-varianten (mobil/touch): samme bilder, vanlig scroll, lightbox. */
+.photo-gallery-grid{list-style:none;margin:34px 0 0;padding:0;display:grid;gap:10px;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
+.photo-gallery-grid button{display:block;width:100%;padding:0;border:1px solid var(--line);
+  border-radius:10px;overflow:hidden;background:var(--img);cursor:zoom-in;}
+.photo-gallery-grid img{width:100%;aspect-ratio:1;object-fit:cover;}

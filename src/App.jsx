@@ -8,6 +8,7 @@ import Projects from "./components/Projects"
 import ProjectDetails from "./components/ProjectDetails"
 import About from "./components/About"
 import Timeline from "./components/Timeline"
+import PhotoGallery from "./components/PhotoGallery"
 import Contact from "./components/Contact"
 
 // true på touch / smale skjermer. Prikk-feltet reagerer bare på en markør,
@@ -105,6 +106,7 @@ export default function App() {
         <Projects />
         <ProjectDetails />
         <Timeline />
+        <PhotoGallery />
         <Contact />
       </main>
     </MotionConfig>

@@ -283,6 +283,12 @@ export const cvProjects = [
   },
 ]
 
+// Fotoseksjonen nederst. Selve bildene ligger i src/assets/foto/ og plukkes
+// opp automatisk — det er bare teksten som styres herfra.
+export const gallery = {
+  heading: "Galleri",
+}
+
 export const contact = {
   heading: "La oss ta en prat →",
   links: [
