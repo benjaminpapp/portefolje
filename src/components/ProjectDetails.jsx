@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Reveal } from "./motion"
 import Photo from "./Photo"
+import BeforeAfter from "./BeforeAfter"
 import Lightbox from "./Lightbox"
 import SplatViewerLazy from "./SplatViewerLazy"
 import { projects } from "../data/content"
@@ -49,29 +50,13 @@ export default function ProjectDetails() {
               ) : p.comparisons ? (
                 <div className="comparisons">
                   {p.comparisons.map((c) => (
-                    <div className="comparison" key={c.label}>
-                      <h3 className="comparison-label">{c.label}</h3>
-                      <div className="before-after">
-                        <figure>
-                          <Photo
-                            src={c.before}
-                            alt={`${p.title} ${c.label} – før`}
-                            className="natural"
-                            onClick={() => open(c.before, `${p.title} ${c.label} – før`)}
-                          />
-                          <figcaption><span className="ba-tag">Før</span></figcaption>
-                        </figure>
-                        <figure>
-                          <Photo
-                            src={c.after}
-                            alt={`${p.title} ${c.label} – etter`}
-                            className="natural"
-                            onClick={() => open(c.after, `${p.title} ${c.label} – etter`)}
-                          />
-                          <figcaption><span className="ba-tag ba-tag-after">Etter</span></figcaption>
-                        </figure>
-                      </div>
-                    </div>
+                    <BeforeAfter
+                      key={c.label}
+                      label={c.label}
+                      before={c.before}
+                      after={c.after}
+                      alt={`${p.title} ${c.label}`}
+                    />
                   ))}
                 </div>
               ) : p.images ? (

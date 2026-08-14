@@ -49,18 +49,19 @@ export const projects = [
     num: "03",
     title: "Nettside",
     tag: "Web",
-    image: `${import.meta.env.BASE_URL}projects/nettside/forside-after-v2.png`,
+    image: `${import.meta.env.BASE_URL}projects/nettside/forside-after.png`,
+    // Alle fire er normalisert til 2200x1100 (2:1), og nettleserkrommet
+    // (fanerad, adressefelt, rullefelt) er beskåret bort fra etter-bildene.
+    // Slideren wiper mellom dem, så utsnittene må matche.
     comparisons: [
       {
         label: "Forside",
-        before: `${import.meta.env.BASE_URL}projects/nettside/before.png`,
-        after: `${import.meta.env.BASE_URL}projects/nettside/forside-after-v2.png`,
+        before: `${import.meta.env.BASE_URL}projects/nettside/forside-before.png`,
+        after: `${import.meta.env.BASE_URL}projects/nettside/forside-after.png`,
       },
       {
         label: "Om oss",
-        // v2: beskåret til 2:1 rundt innholdet. Råskjermbildet var 60 % tomt
-        // hvitt, og ble skviset til en tilsynelatende blank rute i rutenettet.
-        before: `${import.meta.env.BASE_URL}projects/nettside/omoss-before-v2.png`,
+        before: `${import.meta.env.BASE_URL}projects/nettside/omoss-before.png`,
         after: `${import.meta.env.BASE_URL}projects/nettside/omoss-after.png`,
       },
     ],
