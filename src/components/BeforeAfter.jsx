@@ -12,8 +12,7 @@ export default function BeforeAfter({ label, before, after, alt }) {
       {label && <h3 className="comparison-label">{label}</h3>}
       <ReactCompareSlider
         className="ba-slider-frame"
-        // Litt til høyre for midten, så den nye siden får mest plass.
-        defaultPosition={55}
+        defaultPosition={50}
         keyboardIncrement="4%"
         itemOne={
           <ReactCompareSliderImage src={after} alt={`${alt} – etter`} loading="lazy" decoding="async" />
