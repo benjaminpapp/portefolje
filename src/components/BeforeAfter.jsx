@@ -1,4 +1,4 @@
-import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from "react-compare-slider"
+import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider"
 
 // Før/etter i én ramme: dra skillelinjen for å avdekke den gamle siden.
 // Begge bildene er normalisert til 2200x1100 (2:1) og beskåret likt, så
@@ -21,10 +21,10 @@ export default function BeforeAfter({ label, before, after, alt }) {
         itemTwo={
           <ReactCompareSliderImage src={before} alt={`${alt} – før`} loading="lazy" decoding="async" />
         }
-        // Håndtaket setter --rcs-handle-color inline på sin egen rot, så
-        // variabelen må overstyres her — ikke fra .ba-slider-frame i CSS-en.
-        // Hvit forsvant mot det lyse før-bildet; aksentgrønn holder mot begge.
-        handle={<ReactCompareSliderHandle style={{ "--rcs-handle-color": "var(--accent)" }} />}
+        // Ingen `handle`-prop: vi bruker bibliotekets eget håndtak som det er
+        // (hvit ring og piler med blur bak). Skal fargen endres senere, merk at
+        // håndtaket setter --rcs-handle-color inline på sin egen rot — den kan
+        // ikke overstyres fra .ba-slider-frame i CSS-en, bare via `style` her.
       />
       <figcaption className="ba-slider-tags">
         <span className="ba-tag ba-tag-after">Etter</span>
